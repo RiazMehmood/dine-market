@@ -1,9 +1,6 @@
 "use client"
-
-import { useAppDispatch, useAppSelector } from "../../src/store/store";
 import { PrimaryButton } from "./PrimaryButton";
 import { IProduct } from "@/lib/types";
-import { decrement, increment, productQtySelector } from "../../src/store/features/CartSlice";
 import QtyBtn from "./QtyBtn";
 
 interface Props {
@@ -13,7 +10,6 @@ interface Props {
 export const AddtoCart = ({product}: Props) => {
 
   const handleCart = async ()=>{
-    dispatch(increment(product))
     const res = await fetch("/api/cart", {
       method: "POST",
       body: JSON.stringify({
@@ -23,11 +19,9 @@ export const AddtoCart = ({product}: Props) => {
     const result = await res.json()
     console.log(result)
   }
-  const qty = useAppSelector((state) =>
-    productQtySelector(state, product._id)
-  );
 
-  const dispatch = useAppDispatch();
+  const qty = 5
+
   if (!qty)
     return (
       <div>
@@ -38,5 +32,5 @@ export const AddtoCart = ({product}: Props) => {
         />
       </div>
     );
-  return <QtyBtn onDecrease={() => dispatch(decrement(product))} onIncrease={() => dispatch(increment(product))} qty={qty} />;
+  return <QtyBtn onDecrease={() =>{}} onIncrease={() => {}} qty={5} />;
 };

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AddtoCart } from "./AddtoCart";
 import { IProduct } from "@/lib/types";
-import { urlForImage } from "../../sanity/lib/image";
+import { urlForImage } from "../../../sanity/lib/image";
 
 
 

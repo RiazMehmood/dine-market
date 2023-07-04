@@ -1,13 +1,7 @@
 import { IProduct } from "@/lib/types";
 import Image from "next/image";
 import React from "react";
-import { useAppDispatch, useAppSelector } from "@/store/store";
 import QtyBtn from "./QtyBtn";
-import {
-  decrement,
-  increment,
-  productQtySelector,
-} from "@/store/features/CartSlice";
 
 interface CartItem {
   product: IProduct;
@@ -16,7 +10,6 @@ interface CartItem {
 
 const CartItemsCard = (props: any) => {
   console.log(props)
-  const dispatch = useAppDispatch();
   // const qty = useAppSelector((state) =>
   //   productQtySelector(state, props.product._id)
   // );

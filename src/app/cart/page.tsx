@@ -1,19 +1,21 @@
-"use client";
-import { totalPriceSelector } from "@/store/features/CartSlice";
-import CartItemsCard from "../../../components/ui/CartItemsCard";
-import { useAppSelector } from "@/store/store";
+
+import CartItemsCard from "@/components/ui/CartItemsCard";
 
 const Page = () => {
-  const cartItems = useAppSelector((state) => state.cart.cartItems);
-  const totalPrice = useAppSelector(totalPriceSelector);
+
+const cartItems = [
+  123,
+  500
+]
+
   return (
     <div>
       {cartItems.map((item) => (
-        <div key={item.product._id}>{<CartItemsCard cartItems={item} key={item.product._id} />}</div>
+        <div key={item}>{<CartItemsCard cartItems={item} key={item} />}</div>
       ))}
       <p className="text-slate-600">
         Total Price:
-        <span className="text-slate-900 font-bold">{totalPrice}$</span>
+        <span className="text-slate-900 font-bold">{cartItems[1]}$</span>
       </p>
     </div>
   );

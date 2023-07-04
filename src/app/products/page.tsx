@@ -1,4 +1,4 @@
-import ProductCard from "../../../components/ui/ProductCard";
+import ProductCard from "@/components/ui/ProductCard";
 import { client } from "../../../sanity/lib/client";
 import { IProduct } from "@/lib/types";
 

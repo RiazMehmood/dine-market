@@ -1,4 +1,4 @@
-import ProductCard from "../../../../components/ui/ProductCard";
+import ProductCard from "@/components/ui/ProductCard";
 import { getProductData as data } from "../../products/page";
 import { IProduct } from "@/lib/types";
 
