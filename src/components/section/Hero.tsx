@@ -10,6 +10,7 @@ const Hero = () => {
         <p className="bg-[#e1edff] text-[#3f00ff] w-[100px] font-bold rounded-lg  px-2 py-1 text-center">
           Sale 70%
         </p>
+        
         <h1 className="scroll-m-20 text-4xl font-extrabold mt-10 tracking-tight  lg:text-6xl">
           An Industrial Take on Streetwear
         </h1>

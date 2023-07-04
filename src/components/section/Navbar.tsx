@@ -4,26 +4,32 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import Cart from "../ui/Cart";
+import Dropdown from "../ui/dropDown";
+
+//  className={`md:flex md:flex-1 md:text-lg justify-center gap-6 pb-3 mt-8 mr-8 ${
+//   navbar ? "px-12 md:p-0 flex flex-col md:flex-row" : "hidden"
+// }`}
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   return (
-    <nav className="mx-2 -mt-6 md:mt-0 mr-4 md:flex md:items-center justify-between ">
-      <div className="ml-14">
+    <nav className="flex justify-between ml-[45px] my-1 items-center ">
+      <div className="">
         {/* Logo */}
-        <div className="mt-4 -ml-10 invisible md:visible">
+        <div className="">
           <Link href={"/"}>
-          <Image
-            src={"/Logo.webp"}
-            alt="website logo"
-            width={150}
-            height={150}
+            <Image
+              src={"/Logo.webp"}
+              alt="website logo"
+              width={150}
+              height={150}
             />
-            </Link>
+          </Link>
         </div>
+      </div>
+      <div>
         {/* Hamburger Menu Mobile */}
-        <div>
-          <div className="md:hidden">
+        {/* <div className="md:hidden">
             <button
               className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
               onClick={() => setNavbar(!navbar)}
@@ -40,15 +46,11 @@ const Navbar = () => {
                 />
               )}
             </button>
-          </div>
-          {/* Menu End */}
-        </div>
+          </div> */}
+        <Dropdown/>
+        {/* Menu End */}
       </div>
-      <div
-        className={`md:flex md:flex-1 md:text-lg justify-center gap-6 pb-3 mt-8 mr-8 ${
-          navbar ? "px-12 md:p-0 flex flex-col md:flex-row" : "hidden"
-        }`}
-      >
+      <div className="hidden">
         <div className="px-2 py-3 flex-wrap font-semibold text-blue-500 md:text-black/60 md:py-0 ">
           <Link href="/category/Male" onClick={() => setNavbar(!navbar)}>
             Male
@@ -78,10 +80,10 @@ const Navbar = () => {
               className="rounded-r border-2 h-6"
             ></input>
           </div> */}
+          <div className="">
+            <Cart />
+          </div>
         </div>
-      </div>
-      <div className="flex justify-end -mt-12 md:mt-2">
-        <Cart />
       </div>
     </nav>
   );
