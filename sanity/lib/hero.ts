@@ -18,7 +18,8 @@ export const Hero = defineType({
     defineField({
       title: "Hero Sponsor Logos",
       name: "heroSponsorLogos",
-      type: "image",
+      type: "array",
+      of: [{type: "image"}]
     }),
   ],
 });
