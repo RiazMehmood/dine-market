@@ -1,33 +1,40 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AddtoCart } from "./AddtoCart";
-import { IProduct } from "@/lib/types";
 import { urlForImage } from "../../../sanity/lib/image";
+import { Image as SanityImage } from "sanity";
+
+interface AllProducts {
+  id: string,
+  alt: string,
+  image: SanityImage,
+  title: string,
+  subtitle: string,
+  price: number
+
+}
 
 
-
-
-const ProductCard = (props: IProduct) => {
+const ProductCard = (props: AllProducts) => {
   return (
     <div>
-      <Link href={`products/${props._id}`}>
-        <div className="flex flex-col items-center overflow-hidden my-4">
-          <Image src={urlForImage(props.image).url()} width={200} height={200} alt={props.alt} />
+      <Link href={`products/${props.id}`}>
+        <div className="flex flex-col m-auto overflow-hidden my-4">
+          <Image src={urlForImage(props.image).url()} width={250} height={266} alt={props.alt} />
           <h3 className="font-bold text-lg mt-3">
-            Title: <span className="text-base font-normal">{props.title}</span>
+            <span className="text-[15px] font-sora font-bold text-left">{props.title}</span>
           </h3>
           <p className="font-bold text-lg">
-            <span className="text-base font-normal">{props.category?.category}</span>
+            <span className="text-base font-normal">{props.subtitle}</span>
           </p>
           <p className="font-bold text-lg">
-            Price: <span className="text-base font-normal">${props.price}</span>
+            <span className="text-[18px] font-bold font-sora">${props.price}</span>
           </p>
           {/* {props.description ? <p className="font-semibold text-base">{props.description}</p> : ""} */}
         </div>
       </Link>
-      <div className="flex items-center justify-center">
+      {/* <div className="flex items-center justify-center">
         <AddtoCart product={props} />
-      </div>
+      </div> */}
     </div>
   );
 };

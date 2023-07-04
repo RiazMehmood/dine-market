@@ -1,5 +1,5 @@
 import ProductCard from "@/components/ui/ProductCard";
-import { getProductData as data } from "../../products/page";
+import { getProductData as data } from "../../../components/sanityData/fetch";
 import { IProduct } from "@/lib/types";
 
 const getProductData = async (category: string) => {

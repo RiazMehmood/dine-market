@@ -1,29 +1,34 @@
 import ProductCard from "@/components/ui/ProductCard";
-import { client } from "../../../sanity/lib/client";
-import { IProduct } from "@/lib/types";
+import { getProductData } from "@/components/sanityData/fetch";
+import { Image } from "sanity";
 
-export const getProductData = async () => {
-  const res = await client.fetch(`*[_type=='product']{
-    _id, title, category ->  {category}, price, description, image
-  }`);
-  return res;
-};
+
+interface AllProducts {
+  id: string,
+  alt: string,
+  image: Image,
+  productTitle: string,
+  subtitle: string,
+  price: number
+
+}
 
 const allProducts = async () => {
-  const data: IProduct[] = await getProductData();
-  // console.log(data[0]);
+
+  const data: AllProducts[] = await getProductData();
+  // console.log(data[0].productTitle);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-6 items-center">
       {data.map((item) => (
         <ProductCard
-          key={item._id}
-          title={item.title}
-          category={item.category}
+          key={item.id}
+          title={item.productTitle}
+          subtitle={item.subtitle}
           price={item.price}
           image={item.image}
-          _id={item._id}
-          alt={item.title}
+          id={item.id}
+          alt={item.productTitle}
         />
       ))}
     </div>

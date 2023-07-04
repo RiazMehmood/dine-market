@@ -1,6 +1,5 @@
 import { Image } from "sanity";
-import ProductCard from "../../../../components/ui/ProductCard";
-import { getProductData as data } from "../page";
+import { getProductData as data } from "../../../components/sanityData/fetch";
 
 export interface ProductInterface {
   _id: string;
