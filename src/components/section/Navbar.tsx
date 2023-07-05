@@ -13,43 +13,30 @@ import Dropdown from "../ui/dropDown";
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   return (
-    <nav className="flex justify-between ml-[45px] my-1 items-center ">
-      <div className="">
-        {/* Logo */}
+    <nav className="flex items-center justify-center my-8">
+      <div className="flex w-screen justify-around md:w-full items-center">
         <div className="">
-          <Link href={"/"}>
-            <Image
-              src={"/Logo.webp"}
-              alt="website logo"
-              width={150}
-              height={150}
-            />
-          </Link>
+          {/* Logo */}
+          <div className="flex item-center">
+            <Link href={"/"}>
+              <Image
+                src={"/Logo.webp"}
+                alt="website logo"
+                width={140}
+                height={25}
+              />
+            </Link>
+          </div>
+        </div>
+        <div className="">
+          {/* Redix UI Dropdown */}
+          <Dropdown />
         </div>
       </div>
-      <div>
-        {/* Hamburger Menu Mobile */}
-        {/* <div className="md:hidden">
-            <button
-              className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
-              onClick={() => setNavbar(!navbar)}
-            >
-              {navbar ? (
-                <Image src="/close.svg" width={30} height={30} alt="logo" />
-              ) : (
-                <Image
-                  src="/hamburger-menu.svg"
-                  width={30}
-                  height={30}
-                  alt="logo"
-                  className="focus:border-none active:border-none"
-                />
-              )}
-            </button>
-          </div> */}
-        <Dropdown/>
-        {/* Menu End */}
-      </div>
+
+
+
+      
       <div className="hidden">
         <div className="px-2 py-3 flex-wrap font-semibold text-blue-500 md:text-black/60 md:py-0 ">
           <Link href="/category/Male" onClick={() => setNavbar(!navbar)}>

@@ -2,11 +2,13 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
 
+import {MoreHorizontal } from "lucide-react" 
+
 function Dropdown() {
   document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
+      <DropdownMenu.Trigger><MoreHorizontal /></DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content>
           <DropdownMenu.Item>
