@@ -28,7 +28,7 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-        <div className="lg:hidden">
+        <div className="lg:hidden backdrop-blur-xl bg-white">
           {/* Redix UI Dropdown */}
           <Dropdown />
         </div>
