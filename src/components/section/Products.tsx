@@ -3,36 +3,32 @@ import SectionHeadings from "../ui/SectionHeading";
 import Image from "next/image";
 import { PrimaryButton } from "../ui/PrimaryButton";
 import Link from "next/link";
+import Carousel from "../ui/carousal";
+import { client } from "../../../sanity/lib/client";
+import { Image as SImage } from "sanity";
 
-function Products() {
+interface Carousal {
+  key: string;
+  price: string;
+  image: SImage;
+  productTitle: string;
+}
+
+
+async function Products() {
+  const res: Carousal[] = await client.fetch(`*[_type=="product"]{
+        _id, productTitle, image, price
+      }`);
+
+  // console.log("data for carousal", res);
+
   return (
     <section className={"w-full mt-24"}>
       <SectionHeadings
         miniHeading={"Products"}
         mainHeading={"Check What We Have"}
       />
-      <div className={"flex flex-wrap gap-5 justify-around items-center"}>
-        <div className={"flex flex-col items-center justify-center gap-y-3"}>
-          <Image
-            src={"/product1.png"}
-            alt={"Products Girl 1"}
-            width={300}
-            height={300}
-          />
-          <label className={"font-semibold"}>Brushed Raglan Sweatshirt</label>
-          <label className={"font-semibold"}>$195</label>
-        </div>
-        <div className={"flex flex-col items-center justify-center gap-y-3"}>
-          <Image
-            src={"/product2.png"}
-            alt={"Products Girl 2"}
-            width={300}
-            height={300}
-          />
-          <label className={"font-semibold"}>Cameryn Sash Tie Dress</label>
-          <label className={"font-semibold"}>$545</label>
-        </div>
-      </div>
+      <Carousel items={res}/>
       <div className={"mt-24"}>
         <div>
           <label

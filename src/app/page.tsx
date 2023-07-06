@@ -1,4 +1,3 @@
-
 import Hero from "@/components/section/Hero";
 import Newsletters from "@/components/section/Newsletters";
 import Products from "@/components/section/Products";
@@ -8,10 +7,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Promotions/>
-      <Products/>
-      <Newsletters/>
-      
+      <Promotions />
+      <Products />
+      <Newsletters />
     </>
   );
 }
