@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import SectionHeadings from "../ui/SectionHeading";
 import Image from "next/image";
 import { PrimaryButton } from "../ui/PrimaryButton";
@@ -6,6 +6,7 @@ import Link from "next/link";
 import Carousel from "../ui/carousal";
 import { client } from "../../../sanity/lib/client";
 import { Image as SImage } from "sanity";
+import { useEffect, useState } from "react";
 
 interface Carousal {
   key: string;
@@ -14,11 +15,19 @@ interface Carousal {
   productTitle: string;
 }
 
+function Products() {
+  const [carousalItems, setCarousalItems] = useState<Carousal[]>([]);
 
-async function Products() {
-  const res: Carousal[] = await client.fetch(`*[_type=="product"]{
+  useEffect(() => {
+    async function fetchData() {
+      const res: Carousal[] = await client.fetch(`*[_type=="product"]{
         _id, productTitle, image, price
       }`);
+      setCarousalItems(res);
+    }
+
+    fetchData();
+  }, []);
 
   // console.log("data for carousal", res);
 
@@ -28,7 +37,7 @@ async function Products() {
         miniHeading={"Products"}
         mainHeading={"Check What We Have"}
       />
-      <Carousel items={res}/>
+      <Carousel items={carousalItems} />
       <div className={"mt-24"}>
         <div>
           <label

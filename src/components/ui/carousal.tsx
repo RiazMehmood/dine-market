@@ -5,9 +5,8 @@ import "swiper/css";
 import { Image as SImage } from "sanity";
 import { urlForImage } from "../../../sanity/lib/image";
 
-
 interface CarousalProp {
-  items: Carousal[]
+  items: Carousal[];
 }
 
 interface Carousal {
@@ -17,9 +16,7 @@ interface Carousal {
   productTitle: string;
 }
 
-
-
-export default function Carousel({items}: CarousalProp) {
+export default function Carousel({ items }: CarousalProp) {
   const breakpoints = {
     // when window width is >= 640px
     640: {
@@ -38,24 +35,23 @@ export default function Carousel({items}: CarousalProp) {
     },
   };
   return (
-    <Swiper breakpoints={breakpoints}>
-      {items.map((item) => (
-        <SwiperSlide>
-          <div className="hover:scale-110 hover:delay-500 m-4 w-[90%]">
-
-          <Image
-            key={item.key}
-            src={urlForImage(item.image).url()}
-            alt={item.productTitle}
-            width={300}
-            height={350}
-            
-            />
-          <p className="font-bold font-sora text-xl">{item.productTitle}</p>
-          <p className="font-bold font-sora text-xl">${item.price}</p>
+    <div className="flex justify-center items-center w-full">
+      <Swiper breakpoints={breakpoints}>
+        {items.map((item) => (
+          <SwiperSlide key={item.key}>
+            <div className="hover:scale-110 duration-300 hover:delay-500 m-4 w-[90%]">
+              <Image
+                src={urlForImage(item.image).url()}
+                alt={item.productTitle}
+                width={300}
+                height={350}
+              />
+              <p className="font-bold font-sora text-xl">{item.productTitle}</p>
+              <p className="font-bold font-sora text-xl">${item.price}</p>
             </div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 }

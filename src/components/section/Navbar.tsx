@@ -35,17 +35,17 @@ const Navbar = () => {
       </div>
       <div className="hidden lg:flex lg:w-full lg:justify-around">
         <div className="px-2 py-3 flex-wrap font-semibold text-blue-500 md:text-black/60 md:py-0 ">
-          <Link href="/category/Male" onClick={() => setNavbar(!navbar)}>
+          <Link href="/category/male" onClick={() => setNavbar(!navbar)}>
             Male
           </Link>
         </div>
         <div className="px-2 py-3 font-semibold text-blue-500 md:text-black/60 md:py-0">
-          <Link href="/category/Female" onClick={() => setNavbar(!navbar)}>
+          <Link href="/category/female" onClick={() => setNavbar(!navbar)}>
             Female
           </Link>
         </div>
         <div className="px-2 py-3 font-semibold text-blue-500 md:text-black/60 md:py-0">
-          <Link href="/category/Kids" onClick={() => setNavbar(!navbar)}>
+          <Link href="/category/kids" onClick={() => setNavbar(!navbar)}>
             Kids
           </Link>
         </div>
