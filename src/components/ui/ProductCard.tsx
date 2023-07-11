@@ -18,7 +18,7 @@ interface AllProducts {
 const ProductCard = (props: AllProducts) => {
   return (
     <div>
-      <Link href={`products/${props._id}`}>
+      <Link href={`/products/${props._id}`}>
         <div className="flex flex-col m-auto overflow-hidden my-4">
           <Image src={urlForImage(props.image).url()} width={250} height={266} alt={props.alt} />
           <h3 className="font-bold text-lg mt-3">

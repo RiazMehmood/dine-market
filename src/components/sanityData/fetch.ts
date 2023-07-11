@@ -6,6 +6,6 @@ export const getProductData = async () => {
         _id, productTitle, image, productCare, subtitle, productDetails, price, categories,
       }`);
 
-    //   console.log(res[0])
+      // console.log(res[0].productCare)
     return res;
   };
