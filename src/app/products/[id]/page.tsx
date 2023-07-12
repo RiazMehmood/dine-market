@@ -1,12 +1,13 @@
-import { Image } from "sanity";
+import { Image as SImage } from "sanity";
 import { getProductData as data } from "../../../components/sanityData/fetch";
 import { urlForImage } from "../../../../sanity/lib/image";
 import Onclickfunc from "@/components/ui/onclickfunc";
+import Image from "next/image";
 
 interface AllProducts {
   _id: string;
   alt: string;
-  image: Image;
+  image: SImage;
   productTitle: string;
   subtitle: string;
   price: number;
@@ -28,22 +29,24 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <div className="bg-[#fcfcfc] w-[95%] m-auto flex justify-center">
       {result.map((item) => (
-        <div className="flex">
+        <div key={item._id} className="flex">
           <div className="flex items-center justify-center flex-col">
             <div className="lg:flex lg:flex-row lg:justify-around lg:max-h-screen lg:gap-10">
               <div className="flex mt-10 md:w-[700px] justify-around md:justify-around lg:justify-evenly lg:gap-14">
                 <div className=" w-16 md:w-24 md:h-24 lg:w-28 lg:h-28 h-16">
-                  <img
+                  <Image
                     src={urlForImage(item.image).url()}
                     alt={item.productTitle}
+                    width={100}
+                    height={100}
                   />
                 </div>
                 <div className="w-[170px] h-[180px] md:w-[450px] md:h-[470px] lg:w-[60rem] lg:h-[60rem]">
-                  <img
+                  <Image
                     src={urlForImage(item.image).url()}
                     alt={item.productTitle}
-                   width={'700px'}
-                   height={'700px'}
+                  width={700}
+                  height={700}
                   />
                 </div>
               </div>
@@ -59,7 +62,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </h2>
                 <div className="flex gap-5">
                   {sizes.map((size) => (
-                    <div className="">
+                    <div key={item._id} className="">
                       <div className="font-bold hover:shadow-xl hover:cursor-pointer hover:border-2 mt-5 rounded-full w-10 h-10 flex justify-center items-center">
                         {size}
                       </div>
@@ -82,7 +85,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                   PRODUCT CARE
                 </p>
                 {item.productCare.map((items) => (
-                  <li>{items}</li>
+                  <li key={item._id}>{items}</li>
                 ))}
               </div>
             </div>
