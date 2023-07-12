@@ -1,12 +1,11 @@
 "use client";
 import SectionHeadings from "../ui/SectionHeading";
 import Image from "next/image";
-import { PrimaryButton } from "../ui/PrimaryButton";
-import Link from "next/link";
 import Carousel from "../ui/carousal";
 import { client } from "../../../sanity/lib/client";
 import { Image as SImage } from "sanity";
 import { useEffect, useState } from "react";
+import PromoFooter from "@/components/ui/promoFooter";
 
 interface Carousal {
   key: string;
@@ -15,7 +14,7 @@ interface Carousal {
   productTitle: string;
 }
 
-function Products() {
+const Products = () => {
   const [carousalItems, setCarousalItems] = useState<Carousal[]>([]);
 
   useEffect(() => {
@@ -29,7 +28,7 @@ function Products() {
     fetchData();
   }, []);
 
-  // console.log("data for carousal", res);
+  // console.log("data for carousal", carousalItems);
 
   return (
     <section className={"w-full mt-24"}>
@@ -83,27 +82,13 @@ function Products() {
           </div>
           {/* Picture text */}
           <div className="col-span-2 sm:col-span-1 sm:row-span-2 lg:order-4 lg:row-span-2">
-            <p className={"font-light"}>
-              This piece is ethically crafted in our small family-owned workshop
-              in Peru with unmatched attention to detail and care. The Natural
-              color is the actual natural color of the fiber, undyed and 100%
-              traceable.
-            </p>
-            <div className="mt-6">
-              <Link href={"/allProducts"}>
-                <PrimaryButton
-                  classNames={"px-14"}
-                  title={"See All Products"}
-                  onClick={undefined}
-                />
-              </Link>
-            </div>
+            <PromoFooter />
           </div>
         </div>
         <div></div>
       </div>
     </section>
   );
-}
+};
 
 export default Products;

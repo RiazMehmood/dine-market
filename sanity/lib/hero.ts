@@ -16,6 +16,11 @@ export const Hero = defineType({
       type: "image",
     }),
     defineField({
+      title: "Hero Main Image Alt",
+      name: "heroMainAlt",
+      type: "string",
+    }),
+    defineField({
       title: "Hero Sponsor Logos",
       name: "heroSponsorLogos",
       type: "array",
