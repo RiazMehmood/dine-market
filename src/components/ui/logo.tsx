@@ -1,4 +1,6 @@
 'use client'
+
+
 import React, { useEffect, useState } from 'react'
 import { client } from '../../../sanity/lib/client';
 import { Image as SImage } from 'sanity';
@@ -18,19 +20,24 @@ const Logo = () => {
     useEffect(() => {
       const fetchPromoData = async () => {
         const data: Promo[] = await client.fetch(`*[_type=="promotions"]`);
+        console.log("promoData",data[0].logo)
         setPromoData(data);
       };
   
       fetchPromoData();
     }, []);
   return (
-    <div><Image  
-    src={urlForImage(promoData[0]?.logo).url()}
-    alt="website logo"
-    width={140}
-    height={25}
-  /></div>
+    <div>
+    {promoData.length > 0 && promoData[0]?.logo && (
+      <Image
+        src={urlForImage(promoData[0].logo).url()}
+        alt="website logo"
+        width={140}
+        height={25}
+      />
+    )}
+  </div>
   )
 }
 
-export default Logo
+export default Logo;

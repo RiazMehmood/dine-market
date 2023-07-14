@@ -24,12 +24,16 @@ const PromoFooterGirl = () => {
       fetchPromoData();
     }, []);
   return (
-    <div><Image  
-    src={urlForImage(promoData[0]?.footerGirl).url()}
-    alt="website logo"
-    width={140}
-    height={25}
-  /></div>
+    <div>
+    {promoData.length > 0 && promoData[0]?.footerGirl && (
+      <Image
+        src={urlForImage(promoData[0].footerGirl).url()}
+        alt="website logo"
+        width={250}
+        height={350}
+      />
+    )}
+  </div>
   )
 }
 
