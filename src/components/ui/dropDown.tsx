@@ -4,9 +4,12 @@ import Link from "next/link";
 
 import { MoreHorizontal } from "lucide-react";
 import Cart from "./Cart";
+import { useEffect } from "react";
 
 function Dropdown() {
-  document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+  useEffect(() => {
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+  }, []);
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>

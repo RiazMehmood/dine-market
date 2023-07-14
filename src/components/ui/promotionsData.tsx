@@ -1,11 +1,12 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import SectionHeadings from "../ui/SectionHeading";
 import { Image as SImage } from "sanity";
-import { getPromoData } from "../sanityData/promoData";
 import { urlForImage } from "../../../sanity/lib/image";
+import { SyncLoader } from "react-spinners";
+import { client } from "../../../sanity/lib/client";
 
 interface Promo {
   _id: string;
@@ -33,7 +34,7 @@ const PromotionsData = () => {
     // Fetch promo data from an asynchronous source
     const fetchPromoData = async () => {
       try {
-        const data: Promo[] = await getPromoData();
+        const data: Promo[] = await client.fetch(`*[_type=="promotions"]`);
         setPromoData(data);
       } catch (error) {
         console.error("Failed to fetch promo data:", error);
@@ -44,11 +45,14 @@ const PromotionsData = () => {
     fetchPromoData();
   }, []);
 
-
-    // Add a check for empty promoData array
-    if (promoData.length === 0) {
-        return (<div>Loading ...</div>)
-      }
+  // Add a check for empty promoData array
+  if (promoData.length === 0) {
+    return (
+      <div className="flex justify-center text-2xl my-24">
+        <SyncLoader color={"#123abc"} loading={true} />
+      </div>
+    );
+  }
 
   return (
     <>

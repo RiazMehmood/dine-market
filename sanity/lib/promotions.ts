@@ -84,5 +84,15 @@ export const Promotions = defineType({
         name: "promoFooter",
         type: "string",
       }),
+      defineField({
+        title: "Logo",
+        name: "logo",
+        type: "image",
+      }),
+      defineField({
+        title: "Footer Girl",
+        name: "footerGirl",
+        type: "image",
+      }),
   ],
 });

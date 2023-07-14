@@ -1,20 +1,21 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
+import { SyncLoader } from "react-spinners";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { getHeroData } from "../sanityData/heroData";
 import { Image as SImage } from "sanity";
 import { urlForImage } from "../../../sanity/lib/image";
+import { client } from "../../../sanity/lib/client";
 
 interface HeroTypes {
   _id: string;
   heroDiscountBadge: string;
   heroMainImage: SImage;
   heroMainAlt: string;
-  heroSponsorLogos: SImage;
+  heroSponsorLogos: SImage[];
 }
 
 const HeroData = () => {
@@ -24,7 +25,10 @@ const HeroData = () => {
     // Fetch hero data from an asynchronous source
     const fetchHeroData = async () => {
       try {
-        const data: HeroTypes[] = await getHeroData();
+        const data: HeroTypes[] = await client.fetch(`*[_type=="hero"]{
+          _id, heroDiscountBadge, heroMainImage, heroSponsorLogos,
+        }`);
+        console.log(data);
         setHeroData(data);
       } catch (error) {
         console.error("Failed to fetch hero data:", error);
@@ -35,15 +39,22 @@ const HeroData = () => {
     fetchHeroData();
   }, []);
 
-   // Add a check for empty promoData array
-   if (heroData.length === 0) {
-    return (<div>Loading ...</div>)
+  // Add a check for empty promoData array
+  if (heroData.length === 0) {
+    return (
+      <div className="flex justify-center text-2xl">
+        <SyncLoader color={"#123abc"} loading={true} />
+      </div>
+    );
   }
 
   return (
     <div>
       {heroData.map((item) => (
-        <div key={item._id} className="flex items-center justify-between mt-14 mx-14">
+        <div
+          key={item._id}
+          className="flex items-center justify-between mt-14 mx-14"
+        >
           <div className="max-w-2xl">
             {/* Discount badge */}
             <p className="bg-[#e1edff] text-[#3f00ff] w-[100px] font-bold rounded-lg  px-2 py-1 text-center">
@@ -70,32 +81,16 @@ const HeroData = () => {
 
             {/* Featured images */}
             <div className="flex justify-evenly mt-20 gap-x-12">
-              <Image
-                src="/featured1.webp"
-                alt="featured"
-                height={100}
-                width={100}
-              />
-              <Image
-                src="/featured2.webp"
-                alt="featured"
-                height={100}
-                width={100}
-              />
-              <Image
-                src="/featured3.webp"
-                alt="featured"
-                height={100}
-                width={100}
-                className="hidden lg:block"
-              />
-              <Image
-                src="/featured4.webp"
-                alt="featured"
-                height={100}
-                width={100}
-                className="hidden lg:block"
-              />
+              {item.heroSponsorLogos.map((img, ind) => (
+                <div key={ind}>
+                  <Image
+                    src={urlForImage(img).url()}
+                    alt="featured"
+                    height={100}
+                    width={100}
+                  />
+                </div>
+              ))}
             </div>
           </div>
 

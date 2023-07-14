@@ -1,9 +1,12 @@
+import Logo from "../ui/logo";
+
 const Footer = () => {
+  
   return (
     <>
       <div className="grid grid-cols-1 border-t-2 border-black mt-4 mx-4 md:grid-cols-5">
         <div className="w-[300px] mt-10  md:col-span-2">
-          <img src="/logo.webp" alt="logo" width={150} height={150} />
+          <Logo/>
           <p className="mt-5 text-gray-500">
             Small, artisan label that offers a thoughtfully curated collection
             of high quality everyday essentials made.

@@ -1,17 +1,14 @@
 "use client";
-import Image from "next/image";
 import { Search } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import Cart from "../ui/Cart";
 import Dropdown from "../ui/dropDown";
-
-//  className={`md:flex md:flex-1 md:text-lg justify-center gap-6 pb-3 mt-8 mr-8 ${
-//   navbar ? "px-12 md:p-0 flex flex-col md:flex-row" : "hidden"
-// }`}
+import Logo from "../ui/logo";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
+
   return (
     <nav className="flex items-center justify-center my-8 md:my-11 lg:justify-start lg:items-center">
       <div className="flex w-screen justify-around md:justify-between md:mx-10 lg:max-w-[14%] lg:flex-start items-center">
@@ -19,12 +16,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex item-center">
             <Link href={"/"}>
-              <Image
-                src={"/Logo.webp"}
-                alt="website logo"
-                width={140}
-                height={25}
-              />
+              <Logo />
             </Link>
           </div>
         </div>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { PrimaryButton } from "./PrimaryButton";
 import Link from "next/link";
-import { getPromoData } from "../sanityData/promoData";
+import { client } from "../../../sanity/lib/client";
 
 interface Promo {
   _id: string;
@@ -15,7 +15,7 @@ const PromoFooter = () => {
 
   useEffect(() => {
     const fetchPromoData = async () => {
-      const data: Promo[] = await getPromoData();
+      const data: Promo[] = await client.fetch(`*[_type=="promotions"]`);
       setPromoData(data);
     };
 

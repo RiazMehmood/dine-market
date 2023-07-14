@@ -6,6 +6,7 @@ import { client } from "../../../sanity/lib/client";
 import { Image as SImage } from "sanity";
 import { useEffect, useState } from "react";
 import PromoFooter from "@/components/ui/promoFooter";
+import PromoFooterGirl from "../ui/promoFooterGirl";
 
 interface Carousal {
   key: string;
@@ -73,12 +74,7 @@ const Products = () => {
           </div>
           {/* picture */}
           <div className="col-span-2 sm:col-span-1 sm:row-span-2 lg:order-3 lg:row-span-2 mt-4">
-            <Image
-              src={"/product3.png"}
-              alt={"Products Girl 3"}
-              width={300}
-              height={300}
-            />
+           <PromoFooterGirl/>
           </div>
           {/* Picture text */}
           <div className="col-span-2 sm:col-span-1 sm:row-span-2 lg:order-4 lg:row-span-2">
