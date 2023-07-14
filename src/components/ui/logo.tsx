@@ -20,7 +20,7 @@ const Logo = () => {
     useEffect(() => {
       const fetchPromoData = async () => {
         const data: Promo[] = await client.fetch(`*[_type=="promotions"]`);
-        console.log("promoData",data[0].logo)
+        // console.log("promoData",data[0].logo)
         setPromoData(data);
       };
   

@@ -37,7 +37,7 @@ const Products = () => {
         miniHeading={"Products"}
         mainHeading={"Check What We Have"}
       />
-      <Carousel items={carousalItems} />
+      <Carousel items={carousalItems}/>
       <div className={"mt-24"}>
         <div>
           <label

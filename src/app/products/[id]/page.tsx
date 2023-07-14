@@ -1,7 +1,7 @@
 import { Image as SImage } from "sanity";
 import { getProductData as data } from "../../../components/sanityData/fetch";
 import { urlForImage } from "../../../../sanity/lib/image";
-import Onclickfunc from "@/components/ui/onclickfunc";
+import Onclickfunc from "@/components/ui/addToCartBtn";
 import Image from "next/image";
 
 interface AllProducts {
