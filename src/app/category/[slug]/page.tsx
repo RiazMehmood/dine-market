@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           {result.map((item) => (
             <div key={item._id}>
               <ProductCard
-                key={item._id}
+                key={`item._id`}
                 _id={item._id}
                 title={item.productTitle}
                 categories={item.categories}

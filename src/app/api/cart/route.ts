@@ -2,11 +2,19 @@ import { NextResponse, NextRequest } from "next/server";
 import { cartTable, db } from "@/lib/drizzle";
 import { v4 as uid } from "uuid";
 import { cookies } from "next/headers";
+import { eq } from "drizzle-orm";
 
 export const GET = async (request: NextRequest) => {
   try {
-    const res = await db.select().from(cartTable);
-    return NextResponse.json({ res });
+    const userid = cookies().get("user_id")?.value;
+    console.log("cookies value", userid);
+    if (userid) {
+      const res = await db
+        .select()
+        .from(cartTable)
+        .where(eq(cartTable.user_id, userid));
+      return NextResponse.json({ res });
+    }
   } catch (error) {
     console.log("ERR");
     return NextResponse.json({ message: "Failed to Fetch Data" });

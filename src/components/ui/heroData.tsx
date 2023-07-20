@@ -28,7 +28,6 @@ const HeroData = () => {
         const data: HeroTypes[] = await client.fetch(`*[_type=="hero"]{
           _id, heroDiscountBadge, heroMainImage, heroSponsorLogos,
         }`);
-        console.log(data);
         setHeroData(data);
       } catch (error) {
         console.error("Failed to fetch hero data:", error);

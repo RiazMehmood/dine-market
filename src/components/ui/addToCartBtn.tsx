@@ -3,36 +3,30 @@ import React, { useEffect, useState } from "react";
 import { PrimaryButton } from "./PrimaryButton";
 import { client } from "../../../sanity/lib/client";
 import IncreDecreBtn from "./increDecreBtn";
+import { Image as SImage } from "sanity";
 
-interface Props {
-  price: number;
-}
-
-interface Promo {
+interface AllProducts {
   _id: string;
+  alt: string;
+  image: SImage;
+  productTitle: string;
+  subtitle: string;
+  price: number;
+  productDetails: string;
+  productCare: string[];
 }
 
-const Onclickfunc = ({ price }: Props) => {
-  const [promoData, setPromoData] = useState<Promo[]>([]);
+const Onclickfunc = (props: AllProducts) => {
   const [num, setNum] = useState(1);
 
-  useEffect(() => {
-    const fetchPromoData = async () => {
-      const data: Promo[] = await client.fetch(`*[_type=="promotions"]`);
-      setPromoData(data);
-    };
-
-    fetchPromoData();
-  }, []);
-
   const handleCart = async () => {
-    // const res = await fetch("/api/cart", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     product_id: promoData[0]._id,
-    //   }),
-    // });
-    // const result = await res.json();
+    const res = await fetch("/api/cart", {
+      method: "POST",
+      body: JSON.stringify({
+        product_id: props._id,
+      }),
+    });
+    const result = await res.json();
     console.log("add to cart clicked");
   };
 
@@ -50,7 +44,7 @@ const Onclickfunc = ({ price }: Props) => {
             onClick={handleCart}
           />
         </div>
-        <p className="font-bold text-2xl">${price * num}</p>
+        <p className="font-bold text-2xl">${props.price * num}</p>
       </div>
     </div>
   );

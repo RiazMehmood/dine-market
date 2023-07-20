@@ -1,35 +1,47 @@
-"use client"
+"use client";
 
 import { useState } from "react";
+import { Image as SImage } from "sanity";
 import Image from "next/image";
 import { Trash2 } from "lucide-react";
 import IncreDecreBtn from "./increDecreBtn";
+import { urlForImage } from "../../../sanity/lib/image";
 
+interface AllProducts {
+  _id: string;
+  image: SImage;
+  productTitle: string;
+  subtitle: string;
+  price: number;
+  productDetails: string;
+  productCare: string[];
+}
 
-
-const CartItemsCard = (props: any) => {
+const CartItemsCard = ({ item }: { item: AllProducts }) => {
   const [num, setNum] = useState(1);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 md:justify-between lg:justify-evenly lg:grid-cols-3 items-center py-2">
-      <div className="flex justify-center md:justify-start lg:justify-around">
-        <div className="bg-green-500 w-48 h-52 rounded-md">
-          <Image src={"/event1.webp"} alt="" width={200} height={200} />
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 md:justify-between lg:justify-evenly lg:grid-cols-3 items-center py-2">
+        <div className="flex justify-center md:justify-start lg:justify-around">
+          <div className="">
+            <Image src={urlForImage(item.image).url()} alt={item.productTitle} width={250} height={250} />
+          </div>
         </div>
-      </div>
-      <div className="lg:col-span-2">
-        <div className="flex items-center justify-between">
-          <h1 className="text-md py-4 text-[#753a32]">
-            Cameryn Sash Tie Dress
-          </h1>
-          <Trash2 />
-        </div>
-        <h2 className="text-md py-4 font-semibold text-[#848b8e]">Dress</h2>
-        <p className="py-4 text-md font-semibold">Delievery Estimation</p>
-        <p className="py-4 text-[#ffc82c] font-semibold">5 working days</p>
-        <div className="flex items-center gap-4 justify-between">
-          <p className="py-4 font-semibold">${530 * num}</p>
-          <IncreDecreBtn num={num} setNum={setNum} />
+        <div className="lg:col-span-2">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl py-4 text-[#753a32]">
+              {item.productTitle}
+            </h1>
+            <Trash2 />
+          </div>
+          <h2 className="text-md py-4 font-semibold text-[#848b8e]">{item.subtitle}</h2>
+          <p className="py-4 text-md font-semibold">Delievery Estimation</p>
+          <p className="py-4 text-[#ffc82c] font-semibold">5 working days</p>
+          <div className="flex items-center gap-4 justify-between">
+            <p className="py-4 font-semibold">${item.price * num}</p>
+            <IncreDecreBtn num={num} setNum={setNum} />
+          </div>
         </div>
       </div>
     </div>

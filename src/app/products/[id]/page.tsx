@@ -3,6 +3,7 @@ import { getProductData as data } from "../../../components/sanityData/fetch";
 import { urlForImage } from "../../../../sanity/lib/image";
 import Onclickfunc from "@/components/ui/addToCartBtn";
 import Image from "next/image";
+import allProducts from "../page";
 
 interface AllProducts {
   _id: string;
@@ -69,7 +70,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     </div>
                   ))}
                 </div>
-                <Onclickfunc price={item.price} />
+                <Onclickfunc {...item} />
               </div>
             </div>
             <div className="bg-white my-12 font-sora w-[95%]  flex flex-col justify-center">
