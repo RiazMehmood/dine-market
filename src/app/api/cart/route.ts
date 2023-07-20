@@ -4,10 +4,11 @@ import { v4 as uid } from "uuid";
 import { cookies } from "next/headers";
 import { eq } from "drizzle-orm";
 
+//Get Request to get data from DB
 export const GET = async (request: NextRequest) => {
   try {
     const userid = cookies().get("user_id")?.value;
-    console.log("cookies value", userid);
+    console.log("get request called")
     if (userid) {
       const res = await db
         .select()
@@ -21,6 +22,7 @@ export const GET = async (request: NextRequest) => {
   }
 };
 
+//POST request to POST data into DB
 export const POST = async (request: NextRequest) => {
   const req = await request.json();
   const _uid = uid();
@@ -40,5 +42,24 @@ export const POST = async (request: NextRequest) => {
       })
       .returning();
     return NextResponse.json({ res });
-  } catch (error) {}
+  } catch (error) {
+    console.log("error in POST operation", error);
+  }
+};
+
+//DELETE products from DB by id
+export const DELETE = async (request: NextRequest) => {
+  const searchParams = new URLSearchParams(request.nextUrl.search);
+  const data = searchParams.get("id");
+  const productId = data as string;
+  console.log("id recieved in delete req", productId);
+  try {
+    const res = await db
+      .delete(cartTable)
+      .where(eq(cartTable.product_id, productId))
+      .returning();
+    return NextResponse.json({ res });
+  } catch (error) {
+    console.log("error in DELETE request", error);
+  }
 };

@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PrimaryButton } from "./PrimaryButton";
-import { client } from "../../../sanity/lib/client";
 import IncreDecreBtn from "./increDecreBtn";
 import { Image as SImage } from "sanity";
 
@@ -26,7 +25,6 @@ const Onclickfunc = (props: AllProducts) => {
         product_id: props._id,
       }),
     });
-    const result = await res.json();
     console.log("add to cart clicked");
   };
 
