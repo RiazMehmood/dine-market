@@ -16,6 +16,7 @@ const DeleteBtn = ({ id }: any) => {
 
       if (res.ok) {
         console.log("Product deleted successfully");
+        localStorage.removeItem(`quantity_${id}`);
       } else {
         console.error("Failed to delete product");
       }

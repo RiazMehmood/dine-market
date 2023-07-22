@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { Image as SImage } from "sanity";
 import Image from "next/image";
@@ -18,7 +16,18 @@ interface AllProducts {
 }
 
 const CartItemsCard = ({ item }: { item: AllProducts }) => {
-  const [num, setNum] = useState(1);
+  const initialQuantity = 1; // Set the initial quantity value to 1
+
+  const [num, setNum] = useState<number>(() => {
+    // Load the initial quantity from localStorage when the component mounts
+    const storedQuantity = localStorage.getItem(`quantity_${item._id}`);
+    return storedQuantity ? Number(storedQuantity) : initialQuantity;
+  });
+
+  useEffect(() => {
+    // Save the quantity to localStorage whenever it changes
+    localStorage.setItem(`quantity_${item._id}`, String(num));
+  }, [item._id, num]);
 
   return (
     <div>
@@ -41,11 +50,13 @@ const CartItemsCard = ({ item }: { item: AllProducts }) => {
           <h2 className="text-md py-4 font-semibold text-[#848b8e]">
             {item.subtitle}
           </h2>
-          <p className="py-4 text-md font-semibold">Delievery Estimation</p>
+          <p className="py-4 text-md font-semibold">Delivery Estimation</p>
           <p className="py-4 text-[#ffc82c] font-semibold">5 working days</p>
           <div className="flex items-center gap-4 justify-between">
             <p className="py-4 font-semibold">${item.price * num}</p>
-            <IncreDecreBtn num={num} setNum={setNum} />
+            <div>
+              <IncreDecreBtn num={num} setNum={setNum} id={item._id} />
+            </div>
           </div>
         </div>
       </div>

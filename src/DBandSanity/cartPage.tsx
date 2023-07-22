@@ -84,28 +84,31 @@ const CartPage = () => {
         </div>
       ) : (
         <div>
-          
-          {sanityData.map((item) => (
-            <div key={item._id}>
-              <CartItemsCard item={item} />
+          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-10 gap-6 my-10 font-sora items-center mx-3 border-b">
+            <div className="col-span-2 order-1">
+              {sanityData.map((item) => (
+                <div key={item._id}>
+                  <CartItemsCard item={item} />
+                </div>
+              ))}
             </div>
-          ))}
-          <div className="bg-[#fbfcff] lg:h-[100%] px-1 ml-4 order-last my-6">
-            <div className="inline-grid w-full">
-              <p className="font-bold my-4 text-xl">Order summary</p>
-              <div className="flex my-4 justify-between items-center">
-                <p className="text-xl">Quantity</p>
-                <p>2 Product</p>
+            <div className="bg-[#fbfcff] lg:h-[100%] px-1 ml-4 order-last my-6">
+              <div className="inline-grid w-full">
+                <p className="font-bold my-4 text-xl">Order summary</p>
+                <div className="flex my-4 justify-between items-center">
+                  <p className="text-xl">Quantity</p>
+                  <p>2 Product</p>
+                </div>
+                <div className="flex my-4 justify-between items-center">
+                  <p className="text-xl">Subtotal</p>
+                  <p className="">$123</p>
+                </div>
+                <PrimaryButton
+                  classNames=""
+                  onClick={undefined}
+                  title="Process to Checkout"
+                />
               </div>
-              <div className="flex my-4 justify-between items-center">
-                <p className="text-xl">Subtotal</p>
-                <p className="">$123</p>
-              </div>
-              <PrimaryButton
-                classNames=""
-                onClick={undefined}
-                title="Process to Checkout"
-              />
             </div>
           </div>
         </div>
