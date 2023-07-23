@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <div className="bg-[#fcfcfc] w-[95%] m-auto flex justify-center">
       {result.map((item) => (
-        <div key={item._id} className="flex">
+        <div key={Math.random()} className="flex">
           <div className="flex items-center justify-center flex-col">
             <div className="lg:flex lg:flex-row lg:justify-around lg:max-h-screen lg:gap-10">
               <div className="flex mt-10 md:w-[700px] justify-around md:justify-around lg:justify-evenly lg:gap-14">
@@ -63,8 +63,8 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </h2>
                 <div className="flex gap-5">
                   {sizes.map((size) => (
-                    <div key={item._id} className="">
-                      <div className="font-bold hover:shadow-xl hover:cursor-pointer hover:border-2 mt-5 rounded-full w-10 h-10 flex justify-center items-center">
+                    <div key={Math.random()}>
+                      <div key={Math.random()} className="font-bold hover:shadow-xl hover:cursor-pointer hover:border-2 mt-5 rounded-full w-10 h-10 flex justify-center items-center">
                         {size}
                       </div>
                     </div>
@@ -86,7 +86,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                   PRODUCT CARE
                 </p>
                 {item.productCare.map((items) => (
-                  <li key={item._id}>{items}</li>
+                  <li key={Math.random()}>{items}</li>
                 ))}
               </div>
             </div>

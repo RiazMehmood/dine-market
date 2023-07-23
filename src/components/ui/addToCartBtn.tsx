@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { PrimaryButton } from "./PrimaryButton";
 import IncreDecreBtn from "./increDecreBtn";
 import { Image as SImage } from "sanity";
+import { usePostDataInCartMutation } from "@/app/store/slices/services/cartapi";
 
 interface AllProducts {
   _id: string;
@@ -18,14 +19,21 @@ interface AllProducts {
 const Onclickfunc = (props: AllProducts) => {
   const [num, setNum] = useState(1);
 
-  const handleCart = async () => {
-    const res = await fetch("/api/cart", {
-      method: "POST",
-      body: JSON.stringify({
-        product_id: props._id,
-      }),
-    });
-    console.log("add to cart clicked");
+  const [updateCart, { error, isSuccess }] = usePostDataInCartMutation();
+
+  const handleCart = () => {
+    try {
+      const inputString = props._id;
+      const jsonobj = {
+        product_id: inputString
+      }
+      const id = JSON.stringify(jsonobj)
+      updateCart(id);
+      // console.log("id recieved as data", props._id);
+    } catch (err) {
+      console.log("isSuccess", isSuccess);
+      console.log("error update cart", error);
+    }
   };
 
   return (

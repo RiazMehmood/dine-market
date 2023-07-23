@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
 export const GET = async (request: NextRequest) => {
   try {
     const userid = cookies().get("user_id")?.value;
-    console.log("get request called")
+    // console.log("get request called")
     if (userid) {
       const res = await db
         .select()

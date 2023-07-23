@@ -5,6 +5,7 @@ import CartItemsCard from "@/components/ui/CartItemsCard";
 import { Image as SImage } from "sanity";
 import { ShoppingBag } from "lucide-react";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
+import { useGetCartDataQuery } from "@/app/store/slices/services/cartapi";
 
 interface Items {
   id: number;
@@ -26,43 +27,43 @@ interface AllProducts {
 const CartPage = () => {
   const [sanityData, setSanityData] = useState<AllProducts[]>([]);
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<any[]>([]);
-  useEffect(() => {
-    getProductData();
-  }, [sanityData]);
+  const [qty, setQty] = useState<any[]>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const getProductData = async () => {
-    try {
-      const res = await fetch("/api/cart");
-      if (res.ok) {
-        const result = await res.json();
-        const DBfilteredData = result.res.map((item: Items) => item.product_id);
-        setData(DBfilteredData);
-      } else {
-        console.log("Failed to Fetch Data");
-      }
-    } catch (error) {
-      console.log("An Error Occured", error);
+  const { data } = useGetCartDataQuery("");
+  console.log("sanity data to work", sanityData);
+
+  useEffect(() => {
+    if (data) {
+      const productNum = data.res;
+      setQty(productNum);
+      const dataByIds = data.res.map((item: Items) => item.product_id);
+
+      // Fetch product IDs from the database
+      const fetchProductIds = async () => {
+        try {
+          // Fetch data from Sanity based on product IDs
+          const idsData = await fetchSanityDataByIds(dataByIds);
+          setSanityData(idsData);
+
+          // Calculate the total price
+          const dataByPrice = idsData.map((item: any) => item.price);
+          const sum: number = dataByPrice.reduce(
+            (accumulator: number, currentValue: number) =>
+              accumulator + currentValue,
+            0
+          );
+          setTotalPrice(sum);
+
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          setLoading(false);
+        }
+      };
+
+      fetchProductIds();
     }
-  };
-
-  useEffect(() => {
-    // Fetch product IDs from the database
-    const fetchProductIds = async () => {
-      try {
-        const productIds = data;
-
-        // Fetch data from Sanity based on product IDs
-        const idsData = await fetchSanityDataByIds(productIds);
-        setSanityData(idsData);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchProductIds();
   }, [data]);
 
   if (loading) {
@@ -84,28 +85,31 @@ const CartPage = () => {
         </div>
       ) : (
         <div>
-          
-          {sanityData.map((item) => (
-            <div key={item._id}>
-              <CartItemsCard item={item} />
+          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-10 gap-6 my-10 font-sora items-center mx-3 border-b">
+            <div className="col-span-2 order-1">
+              {sanityData.map((item) => (
+                <div key={item._id}>
+                  <CartItemsCard item={item} />
+                </div>
+              ))}
             </div>
-          ))}
-          <div className="bg-[#fbfcff] lg:h-[100%] px-1 ml-4 order-last my-6">
-            <div className="inline-grid w-full">
-              <p className="font-bold my-4 text-xl">Order summary</p>
-              <div className="flex my-4 justify-between items-center">
-                <p className="text-xl">Quantity</p>
-                <p>2 Product</p>
+            <div className="bg-[#fbfcff] lg:h-[100%] px-1 ml-4 order-last my-6">
+              <div className="inline-grid w-full">
+                <p className="font-bold my-4 text-xl">Order summary</p>
+                <div className="flex my-4 justify-between items-center">
+                  <p className="text-xl">Quantity</p>
+                  <p>{qty.length == undefined ? 0 : qty.length} Product</p>
+                </div>
+                <div className="flex my-4 justify-between items-center">
+                  <p className="text-xl">Subtotal</p>
+                  <p className="">${totalPrice}</p>
+                </div>
+                <PrimaryButton
+                  classNames=""
+                  onClick={undefined}
+                  title="Process to Checkout"
+                />
               </div>
-              <div className="flex my-4 justify-between items-center">
-                <p className="text-xl">Subtotal</p>
-                <p className="">$123</p>
-              </div>
-              <PrimaryButton
-                classNames=""
-                onClick={undefined}
-                title="Process to Checkout"
-              />
             </div>
           </div>
         </div>
