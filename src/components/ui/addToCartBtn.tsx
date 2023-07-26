@@ -1,9 +1,15 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PrimaryButton } from "./PrimaryButton";
 import IncreDecreBtn from "./increDecreBtn";
 import { Image as SImage } from "sanity";
-import { usePostDataInCartMutation } from "@/app/store/slices/services/cartapi";
+import {
+  useGetCartDataQuery,
+  usePostDataInCartMutation,
+} from "@/app/store/slices/services/cartapi";
+import AddToCartToast from "./addToCartToast";
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
+import { addProductToCart } from "@/app/store/slices/cartSlice";
 
 interface AllProducts {
   _id: string;
@@ -16,41 +22,77 @@ interface AllProducts {
   productCare: string[];
 }
 
-const Onclickfunc = (props: AllProducts) => {
-  const [num, setNum] = useState(1);
+const Onclickfunc = (item: AllProducts) => {
+  const [pid, setPid] = useState("");
+  const dispatch = useAppDispatch();
+  const productArray = useAppSelector((state) => state.cart.products);
+  const getProductQuantity = (productId: string) => {
+    const product = productArray.find((p) => p.product_id === productId);
+    return product ? product.quantity : 1;
+  };
+  const quantity = getProductQuantity(item._id);
 
-  const [updateCart, { error, isSuccess }] = usePostDataInCartMutation();
+  const { data } = useGetCartDataQuery("");
+  const [updateCart, { error, isSuccess, isLoading }] =
+    usePostDataInCartMutation();
+  const addProductToStore = () => {
+    if (item) {
+      const products = {
+        product_id: item._id,
+        quantity: quantity,
+        price: item.price,
+      };
+      dispatch(addProductToCart(products));
+    }
+  };
+
+  useEffect(() => {
+    if (data) {
+      const productId = data.res;
+      const ids = productId.map((item: any) => item.product_id);
+      console.log("ids from db", ids);
+      setPid(ids);
+    }
+  }, [data]);
 
   const handleCart = () => {
-    try {
-      const inputString = props._id;
-      const jsonobj = {
-        product_id: inputString
+    if (pid == item._id) {
+      console.log("Product already added");
+    } else {
+      try {
+        const inputString = item._id;
+        const jsonobj = {
+          product_id: inputString,
+        };
+        const id = JSON.stringify(jsonobj);
+        updateCart(id);
+
+        // console.log("id recieved as data", props._id);
+      } catch (err) {
+        console.log("isSuccess", isSuccess);
+        console.log("error update cart", error);
       }
-      const id = JSON.stringify(jsonobj)
-      updateCart(id);
-      // console.log("id recieved as data", props._id);
-    } catch (err) {
-      console.log("isSuccess", isSuccess);
-      console.log("error update cart", error);
     }
+    addProductToStore();
   };
 
   return (
     <div>
       <div className="flex gap-4 my-10 items-center">
         <p className="font-bold text-2xl ">Quantity:</p>
-        <IncreDecreBtn num={num} setNum={setNum} />
+        <IncreDecreBtn id={item._id} />
       </div>
       <div className="flex gap-5">
         <div>
-          <PrimaryButton
-            classNames=""
-            title="Add to Cart"
-            onClick={handleCart}
-          />
+          <AddToCartToast>
+            <PrimaryButton
+              classNames=""
+              title={isLoading ? "Adding to Cart" : "Add to Cart"}
+              onClick={handleCart}
+            />
+          </AddToCartToast>
         </div>
-        <p className="font-bold text-2xl">${props.price * num}</p>
+        <p className="font-bold text-2xl">${item.price * quantity}</p>
       </div>
     </div>
   );

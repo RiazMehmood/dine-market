@@ -3,7 +3,6 @@ import { getProductData as data } from "../../../components/sanityData/fetch";
 import { urlForImage } from "../../../../sanity/lib/image";
 import Onclickfunc from "@/components/ui/addToCartBtn";
 import Image from "next/image";
-import allProducts from "../page";
 
 interface AllProducts {
   _id: string;

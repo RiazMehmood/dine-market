@@ -1,17 +1,20 @@
+import { useAppDispatch } from "@/app/store/hooks";
+import { deleteProductFromCart } from "@/app/store/slices/cartSlice";
 import { useDeleteDataInCartMutation } from "@/app/store/slices/services/cartapi";
 import { Trash2 } from "lucide-react";
-import { useState } from "react";
 
 const DeleteBtn = ({ id }: any) => {
   const [deleteCart, { error, isSuccess }] = useDeleteDataInCartMutation();
+  const dispatch = useAppDispatch();
 
   // Function to handle the delete action
   const handleDeleteClick = () => {
     try {
+      dispatch(deleteProductFromCart({id: id}));
       deleteCart(id);
       console.log("id value in delete btn", id);
       console.log("object deleted successfully");
-      console.log("isSuccess", isSuccess)
+      console.log("isSuccess", isSuccess);
     } catch (err) {
       console.log("error: ", error);
     }

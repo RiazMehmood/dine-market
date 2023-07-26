@@ -1,20 +1,30 @@
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
+import {
+  decrementQuantity,
+  incrementQuantity,
+} from "@/app/store/slices/cartSlice";
 
 interface IProps {
-  num: number;
-  setNum?: (value: number | ((prevVar: number) => number)) => void;
+  // num: number;
+  // setNum?: (value: number | ((prevVar: number) => number)) => void;
+  id: string;
 }
 
-const IncreDecreBtn = ({ num, setNum }: IProps) => {
+const IncreDecreBtn = ({ id }: IProps) => {
+  const dispatch = useAppDispatch();
+  const productArray = useAppSelector((state) => state.cart.products);
+  const getProductQuantity = (productId: string) => {
+    const product = productArray.find((p) => p.product_id === productId);
+    return product ? product.quantity : 1;
+  };
+  const quantity = getProductQuantity(id);
+
   const incre = () => {
-    if (num < 10 && setNum) {
-      setNum(num + 1);
-    }
+    dispatch(incrementQuantity({ productId: id }));
   };
 
   const decre = () => {
-    if (num > 1 && setNum) {
-      setNum(num - 1);
-    }
+    dispatch(decrementQuantity({ productId: id }));
   };
   return (
     <div className="flex items-center gap-3">
@@ -24,7 +34,7 @@ const IncreDecreBtn = ({ num, setNum }: IProps) => {
       >
         -
       </button>
-      <p className="">{num}</p>
+      <p className="">{quantity}</p>
       <button
         onClick={incre}
         className="w-8 h-8 hover:cursor-pointer rounded-full bg-slate-300 flex items-center justify-center font-bold"

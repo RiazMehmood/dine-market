@@ -1,13 +1,19 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+interface Product {
+  productName: string,
+  productPrice: number,
+  productQuantity: number
+}
+
 export const cartApi = createApi({
   reducerPath: "cartApi",
-  tagTypes: ["delete","post"],
+  tagTypes: ["delete", "post"],
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
   endpoints: (builder) => ({
     getCartData: builder.query({
       query: () => `/api/cart`,
-      providesTags: ["delete","post"]
+      providesTags: ["delete", "post"],
     }),
     postDataInCart: builder.mutation({
       query: (product_id) => ({
@@ -15,21 +21,30 @@ export const cartApi = createApi({
         method: "POST",
         body: product_id,
       }),
-      invalidatesTags: ["post"]
+      invalidatesTags: ["post"],
+      
+    }),
+    stripeCheckout: builder.mutation<Product, Product>({
+      query: data => ({
+        url: `/api/payments`,
+        method: "POST",
+        body: data,
+      }),
+      // invalidatesTags: [""],
+      
     }),
     updataDataInCart: builder.mutation({
-      query: (data) => ({
-        url: `/api/cart/`,
+      query: ({ id, quantity }) => ({
+        url: `/api/cart/?id=${id}&quantity=${quantity}`,
         method: "PUT",
-        body: data.id,
       }),
     }),
     deleteDataInCart: builder.mutation({
       query: (id) => ({
         url: `/api/cart/?id=${id}`,
         method: "DELETE",
-        }),
-        invalidatesTags: ["delete"]
+      }),
+      invalidatesTags: ["delete"],
     }),
   }),
 });
@@ -38,5 +53,6 @@ export const {
   useGetCartDataQuery,
   usePostDataInCartMutation,
   useUpdataDataInCartMutation,
-  useDeleteDataInCartMutation, 
+  useDeleteDataInCartMutation,
+  useStripeCheckoutMutation,
 } = cartApi;
