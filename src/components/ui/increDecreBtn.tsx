@@ -5,6 +5,8 @@ import {
 } from "@/app/store/slices/cartSlice";
 
 interface IProps {
+  // num: number;
+  // setNum?: (value: number | ((prevVar: number) => number)) => void;
   id: string;
 }
 
@@ -24,9 +26,6 @@ const IncreDecreBtn = ({ id }: IProps) => {
   const decre = () => {
     dispatch(decrementQuantity({ productId: id }));
   };
-
-  };
-
   return (
     <div className="flex items-center gap-3">
       <button
