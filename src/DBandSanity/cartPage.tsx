@@ -4,13 +4,9 @@ import { fetchSanityDataByIds } from "./sanityData";
 import CartItemsCard from "@/components/ui/CartItemsCard";
 import { Image as SImage } from "sanity";
 import { ShoppingBag } from "lucide-react";
-import { PrimaryButton } from "@/components/ui/PrimaryButton";
-import {
-  useGetCartDataQuery,
-  useStripeCheckoutMutation,
-} from "@/app/store/slices/services/cartapi";
-import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
-import { clearCart } from "@/app/store/slices/cartSlice";
+import { useGetCartDataQuery } from "@/app/store/slices/services/cartapi";
+import { useAppSelector } from "@/app/store/hooks";
+import CheckoutBtn from "@/components/ui/checkoutBtn";
 
 interface Items {
   id: number;
@@ -33,11 +29,6 @@ const CartPage = () => {
   const [sanityData, setSanityData] = useState<AllProducts[]>([]);
   const [qty, setQty] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState(0);
-  const [productQuantity, setProductQuantity] = useState(0);
-
-  // {productName, productPrice, productQuantity}
 
   const productArray = useAppSelector((state) => state.cart.products);
   const getProductQuantity = (productId: string) => {
@@ -46,16 +37,10 @@ const CartPage = () => {
   };
 
   const { data, isLoading } = useGetCartDataQuery("");
-  // console.log("sanity data to work", sanityData);
-  const [stripeData, result] = useStripeCheckoutMutation();
 
-  const dispatch = useAppDispatch();
-  // const clearCartFunc = () => {
-  //   dispatch(clearCart());
-  // };
   const productNos = useAppSelector((state) => state.cart.totalQuantity);
   const price = useAppSelector((state) => state.cart.totalPrice);
-  
+
   useEffect(() => {
     setQty(productNos);
     setTotalPrice(price);
@@ -75,31 +60,7 @@ const CartPage = () => {
 
       fetchProductIds();
     }
-    sanityData.map((item) => {
-      if (sanityData.length > 0) {
-        setProductName(item.productTitle);
-        setProductPrice(item.price);
-        const quantity = getProductQuantity(item._id);
-        setProductQuantity(quantity);
-      }
-    });
-  }, [data, price, productNos, sanityData]);
-
-  const body = {
-    productName: productName,
-    productPrice: productPrice,
-    productQuantity: productQuantity,
-  };
-  useEffect(() => {
-    // console.log("body sent into stripe Data",body)
-  }, [sanityData]);
-
-  const handleStripeCheckout = () => {
-    try {
-      stripeData(body);
-      console.log(result);
-    } catch (error) {}
-  };
+  }, [data, price, productNos]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -139,16 +100,7 @@ const CartPage = () => {
                   <p className="text-xl">Subtotal</p>
                   <p className="">${totalPrice}</p>
                 </div>
-                <PrimaryButton
-                  classNames=""
-                  onClick={handleStripeCheckout}
-                  title="Process to Checkout"
-                />
-                {/* <PrimaryButton
-                  classNames=""
-                  onClick={clearCartFunc}
-                  title="Clear Cart"
-                /> */}
+                <CheckoutBtn />
               </div>
             </div>
           </div>

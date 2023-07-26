@@ -10,11 +10,8 @@ const DeleteBtn = ({ id }: any) => {
   // Function to handle the delete action
   const handleDeleteClick = () => {
     try {
-      dispatch(deleteProductFromCart({id: id}));
+      dispatch(deleteProductFromCart({ id: id }));
       deleteCart(id);
-      console.log("id value in delete btn", id);
-      console.log("object deleted successfully");
-      console.log("isSuccess", isSuccess);
     } catch (err) {
       console.log("error: ", error);
     }

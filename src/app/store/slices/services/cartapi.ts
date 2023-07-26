@@ -1,11 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-interface Product {
-  productName: string,
-  productPrice: number,
-  productQuantity: number
-}
-
 export const cartApi = createApi({
   reducerPath: "cartApi",
   tagTypes: ["delete", "post"],
@@ -22,17 +16,8 @@ export const cartApi = createApi({
         body: product_id,
       }),
       invalidatesTags: ["post"],
-      
     }),
-    stripeCheckout: builder.mutation<Product, Product>({
-      query: data => ({
-        url: `/api/payments`,
-        method: "POST",
-        body: data,
-      }),
-      // invalidatesTags: [""],
-      
-    }),
+
     updataDataInCart: builder.mutation({
       query: ({ id, quantity }) => ({
         url: `/api/cart/?id=${id}&quantity=${quantity}`,
@@ -54,5 +39,4 @@ export const {
   usePostDataInCartMutation,
   useUpdataDataInCartMutation,
   useDeleteDataInCartMutation,
-  useStripeCheckoutMutation,
 } = cartApi;

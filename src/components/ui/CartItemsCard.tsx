@@ -35,7 +35,6 @@ const CartItemsCard = ({ item }: { item: AllProducts }) => {
   useEffect(() => {
     if (item) {
       updateCart({ id, quantity });
-      console.log("update cart", error, isSuccess, isLoading);
     }
   }, [quantity]);
 

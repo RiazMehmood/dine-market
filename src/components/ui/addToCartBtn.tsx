@@ -38,6 +38,7 @@ const Onclickfunc = (item: AllProducts) => {
   const addProductToStore = () => {
     if (item) {
       const products = {
+        product_name: item.productTitle,
         product_id: item._id,
         quantity: quantity,
         price: item.price,
@@ -50,7 +51,6 @@ const Onclickfunc = (item: AllProducts) => {
     if (data) {
       const productId = data.res;
       const ids = productId.map((item: any) => item.product_id);
-      console.log("ids from db", ids);
       setPid(ids);
     }
   }, [data]);
@@ -67,9 +67,7 @@ const Onclickfunc = (item: AllProducts) => {
         const id = JSON.stringify(jsonobj);
         updateCart(id);
 
-        // console.log("id recieved as data", props._id);
       } catch (err) {
-        console.log("isSuccess", isSuccess);
         console.log("error update cart", error);
       }
     }

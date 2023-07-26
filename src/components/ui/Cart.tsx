@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 const Cart = () => {
   const [qty, setQty] = useState<number>(0);
   const productNos = useAppSelector((state) => state.cart.products.length);
-  console.log("product qty", productNos);
-  
+
   useEffect(() => {
     setQty(productNos);
   }, [productNos]);
