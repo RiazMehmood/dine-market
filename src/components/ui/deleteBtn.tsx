@@ -1,12 +1,16 @@
-"use client";
-
+import { useAppDispatch } from "@/app/store/hooks";
+import { deleteProductFromCart } from "@/app/store/slices/cartSlice";
+import { useDeleteDataInCartMutation } from "@/app/store/slices/services/cartapi";
 import { Trash2 } from "lucide-react";
 
 const DeleteBtn = ({ id }: any) => {
-  const deleteProducts = async () => {
-    console.log(id);
+  const [deleteCart, { error, isSuccess }] = useDeleteDataInCartMutation();
+  const dispatch = useAppDispatch();
 
+  // Function to handle the delete action
+  const handleDeleteClick = () => {
     try {
+<<<<<<< HEAD
       const res = await fetch(`/api/cart?id=${id}`, {
         method: "DELETE",
         headers: {
@@ -22,12 +26,18 @@ const DeleteBtn = ({ id }: any) => {
       }
     } catch (error) {
       console.error("An error occurred while deleting product:", error);
+=======
+      dispatch(deleteProductFromCart({ id: id }));
+      deleteCart(id);
+    } catch (err) {
+      console.log("error: ", error);
+>>>>>>> redux
     }
   };
 
   return (
     <div>
-      <button onClick={deleteProducts}>
+      <button onClick={handleDeleteClick}>
         <Trash2 />
       </button>
     </div>

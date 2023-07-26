@@ -5,11 +5,13 @@ import Link from "next/link";
 import Cart from "../ui/Cart";
 import Dropdown from "../ui/dropDown";
 import Logo from "../ui/logo";
+import Providers from "@/app/providers";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
 
   return (
+    <Providers>
     <nav className="flex items-center justify-center my-8 md:my-11 lg:justify-start lg:items-center">
       <div className="flex w-screen justify-around md:justify-between md:mx-10 lg:max-w-[14%] lg:flex-start items-center">
         <div className="">
@@ -60,6 +62,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+    </Providers>
   );
 };
 

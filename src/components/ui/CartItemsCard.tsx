@@ -4,6 +4,8 @@ import Image from "next/image";
 import IncreDecreBtn from "./increDecreBtn";
 import { urlForImage } from "../../../sanity/lib/image";
 import DeleteBtn from "./deleteBtn";
+import { useUpdataDataInCartMutation } from "@/app/store/slices/services/cartapi";
+import { useAppSelector } from "@/app/store/hooks";
 
 interface AllProducts {
   _id: string;
@@ -16,6 +18,7 @@ interface AllProducts {
 }
 
 const CartItemsCard = ({ item }: { item: AllProducts }) => {
+<<<<<<< HEAD
   const initialQuantity = 1; // Set the initial quantity value to 1
 
   const [num, setNum] = useState<number>(() => {
@@ -28,6 +31,25 @@ const CartItemsCard = ({ item }: { item: AllProducts }) => {
     // Save the quantity to localStorage whenever it changes
     localStorage.setItem(`quantity_${item._id}`, String(num));
   }, [item._id, num]);
+=======
+  const id = item._id;
+
+  const productArray = useAppSelector((state) => state.cart.products);
+  const getProductQuantity = (productId: string) => {
+    const product = productArray.find((p) => p.product_id === productId);
+    return product ? product.quantity : 1;
+  };
+  const quantity = getProductQuantity(id);
+
+  const [updateCart, { error, isSuccess, isLoading }] =
+    useUpdataDataInCartMutation();
+
+  useEffect(() => {
+    if (item) {
+      updateCart({ id, quantity });
+    }
+  }, [quantity]);
+>>>>>>> redux
 
   return (
     <div>
@@ -53,10 +75,15 @@ const CartItemsCard = ({ item }: { item: AllProducts }) => {
           <p className="py-4 text-md font-semibold">Delivery Estimation</p>
           <p className="py-4 text-[#ffc82c] font-semibold">5 working days</p>
           <div className="flex items-center gap-4 justify-between">
+<<<<<<< HEAD
             <p className="py-4 font-semibold">${item.price * num}</p>
             <div>
               <IncreDecreBtn num={num} setNum={setNum} id={item._id} />
             </div>
+=======
+            <p className="py-4 font-semibold">${item.price * quantity}</p>
+            <IncreDecreBtn id={item._id} />
+>>>>>>> redux
           </div>
         </div>
       </div>

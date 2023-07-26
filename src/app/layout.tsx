@@ -1,15 +1,15 @@
 import Footer from "@/components/section/Footer";
 import Navbar from "@/components/section/Navbar";
 import Wrapper from "@/components/ui/Wrapper";
-import {Sora} from "@next/font/google"
+import { Sora } from "@next/font/google";
 import "./globals.css";
+import Providers from "./providers";
 
 const sora = Sora({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: "--font-sora"
-})
-
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-sora",
+});
 
 export const metadata = {
   title: "Dine Market",
@@ -25,9 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Wrapper>
-          <Navbar />
+        <Navbar/>
           <main className={sora.variable}>
-          {children}
+            <Providers>
+              {children}</Providers>
           </main>
           <Footer />
         </Wrapper>

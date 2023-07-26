@@ -29,7 +29,6 @@ const Products = () => {
     fetchData();
   }, []);
 
-  // console.log("data for carousal", carousalItems);
 
   return (
     <section className={"w-full mt-24"}>

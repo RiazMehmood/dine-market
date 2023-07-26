@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client"
 
 import { useEffect } from "react";
@@ -44,6 +45,35 @@ const IncreDecreBtn = ({ id, num, setNum }: IProps) => {
       // Update the quantity in the database as well
       updateQuantityInDatabase(updatedNum);
     }
+=======
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
+import {
+  decrementQuantity,
+  incrementQuantity,
+} from "@/app/store/slices/cartSlice";
+
+interface IProps {
+  // num: number;
+  // setNum?: (value: number | ((prevVar: number) => number)) => void;
+  id: string;
+}
+
+const IncreDecreBtn = ({ id }: IProps) => {
+  const dispatch = useAppDispatch();
+  const productArray = useAppSelector((state) => state.cart.products);
+  const getProductQuantity = (productId: string) => {
+    const product = productArray.find((p) => p.product_id === productId);
+    return product ? product.quantity : 1;
+  };
+  const quantity = getProductQuantity(id);
+
+  const incre = () => {
+    dispatch(incrementQuantity({ productId: id }));
+  };
+
+  const decre = () => {
+    dispatch(decrementQuantity({ productId: id }));
+>>>>>>> redux
   };
 
   const decre = async () => {
@@ -64,7 +94,11 @@ const IncreDecreBtn = ({ id, num, setNum }: IProps) => {
       >
         -
       </button>
+<<<<<<< HEAD
       <p>{num}</p>
+=======
+      <p className="">{quantity}</p>
+>>>>>>> redux
       <button
         onClick={incre}
         className="w-8 h-8 hover:cursor-pointer rounded-full bg-slate-300 flex items-center justify-center font-bold"

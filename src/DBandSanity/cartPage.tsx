@@ -4,7 +4,9 @@ import { fetchSanityDataByIds } from "./sanityData";
 import CartItemsCard from "@/components/ui/CartItemsCard";
 import { Image as SImage } from "sanity";
 import { ShoppingBag } from "lucide-react";
-import { PrimaryButton } from "@/components/ui/PrimaryButton";
+import { useGetCartDataQuery } from "@/app/store/slices/services/cartapi";
+import { useAppSelector } from "@/app/store/hooks";
+import CheckoutBtn from "@/components/ui/checkoutBtn";
 
 interface Items {
   id: number;
@@ -25,47 +27,42 @@ interface AllProducts {
 
 const CartPage = () => {
   const [sanityData, setSanityData] = useState<AllProducts[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<any[]>([]);
-  useEffect(() => {
-    getProductData();
-  }, [sanityData]);
+  const [qty, setQty] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const getProductData = async () => {
-    try {
-      const res = await fetch("/api/cart");
-      if (res.ok) {
-        const result = await res.json();
-        const DBfilteredData = result.res.map((item: Items) => item.product_id);
-        setData(DBfilteredData);
-      } else {
-        console.log("Failed to Fetch Data");
-      }
-    } catch (error) {
-      console.log("An Error Occured", error);
-    }
+  const productArray = useAppSelector((state) => state.cart.products);
+  const getProductQuantity = (productId: string) => {
+    const product = productArray.find((p) => p.product_id === productId);
+    return product ? product.quantity : 1;
   };
 
+  const { data, isLoading } = useGetCartDataQuery("");
+
+  const productNos = useAppSelector((state) => state.cart.totalQuantity);
+  const price = useAppSelector((state) => state.cart.totalPrice);
+
   useEffect(() => {
-    // Fetch product IDs from the database
-    const fetchProductIds = async () => {
-      try {
-        const productIds = data;
+    setQty(productNos);
+    setTotalPrice(price);
+    if (data) {
+      const dataByIds = data.res.map((item: Items) => item.product_id);
 
-        // Fetch data from Sanity based on product IDs
-        const idsData = await fetchSanityDataByIds(productIds);
-        setSanityData(idsData);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
+      // Fetch product IDs from the database
+      const fetchProductIds = async () => {
+        try {
+          // Fetch data from Sanity based on product IDs
+          const idsData = await fetchSanityDataByIds(dataByIds);
+          setSanityData(idsData);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
 
-    fetchProductIds();
-  }, [data]);
+      fetchProductIds();
+    }
+  }, [data, price, productNos]);
 
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
   return (
@@ -97,6 +94,7 @@ const CartPage = () => {
                 <p className="font-bold my-4 text-xl">Order summary</p>
                 <div className="flex my-4 justify-between items-center">
                   <p className="text-xl">Quantity</p>
+<<<<<<< HEAD
                   <p>2 Product</p>
                 </div>
                 <div className="flex my-4 justify-between items-center">
@@ -108,6 +106,15 @@ const CartPage = () => {
                   onClick={undefined}
                   title="Process to Checkout"
                 />
+=======
+                  <p>{qty == undefined ? 0 : qty} Product</p>
+                </div>
+                <div className="flex my-4 justify-between items-center">
+                  <p className="text-xl">Subtotal</p>
+                  <p className="">${totalPrice}</p>
+                </div>
+                <CheckoutBtn />
+>>>>>>> redux
               </div>
             </div>
           </div>

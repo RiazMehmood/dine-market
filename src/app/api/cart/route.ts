@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
 export const GET = async (request: NextRequest) => {
   try {
     const userid = cookies().get("user_id")?.value;
-    // console.log("get request called")
+    console.log("get request called")
     if (userid) {
       const res = await db
         .select()
@@ -52,7 +52,6 @@ export const DELETE = async (request: NextRequest) => {
   const searchParams = new URLSearchParams(request.nextUrl.search);
   const data = searchParams.get("id");
   const productId = data as string;
-  console.log("id recieved in delete req", productId);
   try {
     const res = await db
       .delete(cartTable)
@@ -61,24 +60,5 @@ export const DELETE = async (request: NextRequest) => {
     return NextResponse.json({ res });
   } catch (error) {
     console.log("error in DELETE request", error);
-  }
-};
-
-
-//UPDATE products from DB by id
-export const PUT = async (request: NextRequest) => {
-  const searchParams = new URLSearchParams(request.nextUrl.search);
-  const data = searchParams.get("id");
-  const insertedQuantity = Number(searchParams.get("quantity"));
-  const productId = data as string;
-  console.log("id recieved in delete req", productId);
-  try {
-    const res = await db
-      .update(cartTable).set({quantity: insertedQuantity})
-      .where(eq(cartTable.product_id, productId))
-      .returning();
-    return NextResponse.json({ res });
-  } catch (error) {
-    console.log("error in UPDATE request", error);
   }
 };
