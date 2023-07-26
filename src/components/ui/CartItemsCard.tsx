@@ -18,20 +18,6 @@ interface AllProducts {
 }
 
 const CartItemsCard = ({ item }: { item: AllProducts }) => {
-<<<<<<< HEAD
-  const initialQuantity = 1; // Set the initial quantity value to 1
-
-  const [num, setNum] = useState<number>(() => {
-    // Load the initial quantity from localStorage when the component mounts
-    const storedQuantity = localStorage.getItem(`quantity_${item._id}`);
-    return storedQuantity ? Number(storedQuantity) : initialQuantity;
-  });
-
-  useEffect(() => {
-    // Save the quantity to localStorage whenever it changes
-    localStorage.setItem(`quantity_${item._id}`, String(num));
-  }, [item._id, num]);
-=======
   const id = item._id;
 
   const productArray = useAppSelector((state) => state.cart.products);
@@ -49,7 +35,6 @@ const CartItemsCard = ({ item }: { item: AllProducts }) => {
       updateCart({ id, quantity });
     }
   }, [quantity]);
->>>>>>> redux
 
   return (
     <div>
@@ -75,15 +60,8 @@ const CartItemsCard = ({ item }: { item: AllProducts }) => {
           <p className="py-4 text-md font-semibold">Delivery Estimation</p>
           <p className="py-4 text-[#ffc82c] font-semibold">5 working days</p>
           <div className="flex items-center gap-4 justify-between">
-<<<<<<< HEAD
-            <p className="py-4 font-semibold">${item.price * num}</p>
-            <div>
-              <IncreDecreBtn num={num} setNum={setNum} id={item._id} />
-            </div>
-=======
             <p className="py-4 font-semibold">${item.price * quantity}</p>
             <IncreDecreBtn id={item._id} />
->>>>>>> redux
           </div>
         </div>
       </div>

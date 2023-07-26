@@ -94,19 +94,6 @@ const CartPage = () => {
                 <p className="font-bold my-4 text-xl">Order summary</p>
                 <div className="flex my-4 justify-between items-center">
                   <p className="text-xl">Quantity</p>
-<<<<<<< HEAD
-                  <p>2 Product</p>
-                </div>
-                <div className="flex my-4 justify-between items-center">
-                  <p className="text-xl">Subtotal</p>
-                  <p className="">$123</p>
-                </div>
-                <PrimaryButton
-                  classNames=""
-                  onClick={undefined}
-                  title="Process to Checkout"
-                />
-=======
                   <p>{qty == undefined ? 0 : qty} Product</p>
                 </div>
                 <div className="flex my-4 justify-between items-center">
@@ -114,7 +101,6 @@ const CartPage = () => {
                   <p className="">${totalPrice}</p>
                 </div>
                 <CheckoutBtn />
->>>>>>> redux
               </div>
             </div>
           </div>
