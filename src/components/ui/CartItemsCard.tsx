@@ -6,16 +6,8 @@ import { urlForImage } from "../../../sanity/lib/image";
 import DeleteBtn from "./deleteBtn";
 import { useUpdataDataInCartMutation } from "@/app/store/slices/services/cartapi";
 import { useAppSelector } from "@/app/store/hooks";
+import { AllProducts } from "@/lib/types";
 
-interface AllProducts {
-  _id: string;
-  image: SImage;
-  productTitle: string;
-  subtitle: string;
-  price: number;
-  productDetails: string;
-  productCare: string[];
-}
 
 const CartItemsCard = ({ item }: { item: AllProducts }) => {
   const id = item._id;

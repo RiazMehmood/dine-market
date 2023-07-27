@@ -1,15 +1,7 @@
 import ProductCard from "@/components/ui/ProductCard";
 import { getProductData } from "@/components/sanityData/fetch";
-import { Image } from "sanity";
+import { AllProducts } from "@/lib/types";
 
-interface AllProducts {
-  _id: string;
-  alt: string;
-  image: Image;
-  productTitle: string;
-  subtitle: string;
-  price: number;
-}
 
 const allProducts = async () => {
   const data: AllProducts[] = await getProductData();
@@ -20,7 +12,7 @@ const allProducts = async () => {
         {data.map((item) => (
           <ProductCard
             key={item._id}
-            title={item.productTitle}
+            productTitle={item.productTitle}
             subtitle={item.subtitle}
             price={item.price}
             image={item.image}

@@ -3,12 +3,8 @@ import {
   decrementQuantity,
   incrementQuantity,
 } from "@/app/store/slices/cartSlice";
+import { IProps } from "@/lib/types";
 
-interface IProps {
-  // num: number;
-  // setNum?: (value: number | ((prevVar: number) => number)) => void;
-  id: string;
-}
 
 const IncreDecreBtn = ({ id }: IProps) => {
   const dispatch = useAppDispatch();

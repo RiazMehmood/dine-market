@@ -1,19 +1,13 @@
 "use client";
 import SectionHeadings from "../ui/SectionHeading";
-import Image from "next/image";
 import Carousel from "../ui/carousal";
 import { client } from "../../../sanity/lib/client";
 import { Image as SImage } from "sanity";
 import { useEffect, useState } from "react";
 import PromoFooter from "@/components/ui/promoFooter";
 import PromoFooterGirl from "../ui/promoFooterGirl";
+import { Carousal } from "@/lib/types";
 
-interface Carousal {
-  key: string;
-  price: string;
-  image: SImage;
-  productTitle: string;
-}
 
 const Products = () => {
   const [carousalItems, setCarousalItems] = useState<Carousal[]>([]);

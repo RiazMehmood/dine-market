@@ -4,11 +4,8 @@ import { useEffect, useState } from "react";
 import { PrimaryButton } from "./PrimaryButton";
 import Link from "next/link";
 import { client } from "../../../sanity/lib/client";
+import {Promo} from '@/lib/types'
 
-interface Promo {
-  _id: string;
-  promoFooter: string;
-}
 
 const PromoFooter = () => {
   const [promoData, setPromoData] = useState<Promo[]>([]);

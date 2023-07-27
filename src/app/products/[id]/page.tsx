@@ -3,17 +3,7 @@ import { getProductData as data } from "../../../components/sanityData/fetch";
 import { urlForImage } from "../../../../sanity/lib/image";
 import Onclickfunc from "@/components/ui/addToCartBtn";
 import Image from "next/image";
-
-interface AllProducts {
-  _id: string;
-  alt: string;
-  image: SImage;
-  productTitle: string;
-  subtitle: string;
-  price: number;
-  productDetails: string;
-  productCare: string[];
-}
+import { AllProducts } from "@/lib/types";
 
 const getProductData = async (id: string) => {
   const getData = await data();
@@ -84,7 +74,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <p className="my-12 font-semibold text-[#989087]">
                   PRODUCT CARE
                 </p>
-                {item.productCare.map((items) => (
+                {item.productCare && item.productCare.map((items) => (
                   <li key={Math.random()}>{items}</li>
                 ))}
               </div>

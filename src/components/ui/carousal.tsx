@@ -2,19 +2,13 @@
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Image as SImage } from "sanity";
 import { urlForImage } from "../../../sanity/lib/image";
+import { Carousal } from "@/lib/types";
 
 interface CarousalProp {
   items: Carousal[];
 }
 
-interface Carousal {
-  key: string;
-  price: string;
-  image: SImage;
-  productTitle: string;
-}
 
 export default function Carousel({ items }: CarousalProp) {
   const breakpoints = {

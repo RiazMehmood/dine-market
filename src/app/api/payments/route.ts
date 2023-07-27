@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { NextResponse, NextRequest } from "next/server";
+import { AddToCartItems } from "@/lib/types";
 
 const stripeKey: string = process.env.STRIPE_SECRET_KEY || "";
 const stripe = new Stripe(stripeKey, { apiVersion: "2022-11-15" });
@@ -19,12 +20,12 @@ export async function POST(request: NextRequest) {
           { shipping_rate: "shr_1NY7wvB9ghs2qA4OVBkcE60C" },
           { shipping_rate: "shr_1NY7wBB9ghs2qA4OHxBZjKPg" },
         ],
-        line_items: data.map((item: any) => {
+        line_items: data.map((item: AddToCartItems) => {
           return {
             price_data: {
               currency: "usd",
               product_data: {
-                name: item.product_name,
+                name: item.name,
               },
               unit_amount: item.price * 100,
             },

@@ -3,7 +3,7 @@ import { deleteProductFromCart } from "@/app/store/slices/cartSlice";
 import { useDeleteDataInCartMutation } from "@/app/store/slices/services/cartapi";
 import { Trash2 } from "lucide-react";
 
-const DeleteBtn = ({ id }: any) => {
+const DeleteBtn = ({ id }: {id: string}) => {
   const [deleteCart, { error, isSuccess }] = useDeleteDataInCartMutation();
   const dispatch = useAppDispatch();
 

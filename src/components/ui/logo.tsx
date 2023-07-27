@@ -2,14 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { client } from "../../../sanity/lib/client";
-import { Image as SImage } from "sanity";
 import { urlForImage } from "../../../sanity/lib/image";
 import Image from "next/image";
+import { Promo } from "@/lib/types"
 
-interface Promo {
-  _id: string;
-  logo: SImage;
-}
 
 const Logo = () => {
   const [promoData, setPromoData] = useState<Promo[]>([]);

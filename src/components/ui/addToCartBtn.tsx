@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { PrimaryButton } from "./PrimaryButton";
 import IncreDecreBtn from "./increDecreBtn";
-import { Image as SImage } from "sanity";
 import {
   useGetCartDataQuery,
   usePostDataInCartMutation,
@@ -10,17 +9,8 @@ import {
 import AddToCartToast from "./addToCartToast";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { addProductToCart } from "@/app/store/slices/cartSlice";
+import { AllProducts, AddToCartItems } from "@/lib/types";
 
-interface AllProducts {
-  _id: string;
-  alt: string;
-  image: SImage;
-  productTitle: string;
-  subtitle: string;
-  price: number;
-  productDetails: string;
-  productCare: string[];
-}
 
 const Onclickfunc = (item: AllProducts) => {
   const [pid, setPid] = useState("");
@@ -38,7 +28,7 @@ const Onclickfunc = (item: AllProducts) => {
   const addProductToStore = () => {
     if (item) {
       const products = {
-        product_name: item.productTitle,
+        name: item.productTitle,
         product_id: item._id,
         quantity: quantity,
         price: item.price,
@@ -50,7 +40,7 @@ const Onclickfunc = (item: AllProducts) => {
   useEffect(() => {
     if (data) {
       const productId = data.res;
-      const ids = productId.map((item: any) => item.product_id);
+      const ids = productId.map((item: AddToCartItems) => item.product_id);
       setPid(ids);
     }
   }, [data]);
@@ -66,7 +56,6 @@ const Onclickfunc = (item: AllProducts) => {
         };
         const id = JSON.stringify(jsonobj);
         updateCart(id);
-
       } catch (err) {
         console.log("error update cart", error);
       }

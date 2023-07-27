@@ -3,38 +3,19 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import SectionHeadings from "../ui/SectionHeading";
-import { Image as SImage } from "sanity";
 import { urlForImage } from "../../../sanity/lib/image";
 import { SyncLoader } from "react-spinners";
 import { client } from "../../../sanity/lib/client";
-
-interface Promo {
-  _id: string;
-  cardCurrentPrice3: number;
-  cardCurrentPrice4: number;
-  cardImage1: SImage;
-  cardImage3: SImage;
-  cardImage4: SImage;
-  cardPreviousPrice3: number;
-  cardPreviousPrice4: number;
-  cardPromoCode2: string;
-  cardSubtitle1: string;
-  cardSubtitle2: string;
-  cardTitle1: string;
-  cardTitle2: string;
-  cardTitle3: string;
-  cardTitle4: string;
-  promoFooter: string;
-}
+import { PromoData } from "@/lib/types";
 
 const PromotionsData = () => {
-  const [promoData, setPromoData] = useState<Promo[]>([]);
+  const [promoData, setPromoData] = useState<PromoData[]>([]);
 
   useEffect(() => {
     // Fetch promo data from an asynchronous source
     const fetchPromoData = async () => {
       try {
-        const data: Promo[] = await client.fetch(`*[_type=="promotions"]`);
+        const data: PromoData[] = await client.fetch(`*[_type=="promotions"]`);
         setPromoData(data);
       } catch (error) {
         console.error("Failed to fetch promo data:", error);

@@ -2,28 +2,12 @@
 import { useEffect, useState } from "react";
 import { fetchSanityDataByIds } from "./sanityData";
 import CartItemsCard from "@/components/ui/CartItemsCard";
-import { Image as SImage } from "sanity";
 import { ShoppingBag } from "lucide-react";
 import { useGetCartDataQuery } from "@/app/store/slices/services/cartapi";
 import { useAppSelector } from "@/app/store/hooks";
 import CheckoutBtn from "@/components/ui/checkoutBtn";
+import { AllProducts, Items } from "@/lib/types";
 
-interface Items {
-  id: number;
-  user_id: string;
-  product_id: string;
-  quantity: number;
-}
-
-interface AllProducts {
-  _id: string;
-  image: SImage;
-  productTitle: string;
-  subtitle: string;
-  price: number;
-  productDetails: string;
-  productCare: string[];
-}
 
 const CartPage = () => {
   const [sanityData, setSanityData] = useState<AllProducts[]>([]);
@@ -63,7 +47,7 @@ const CartPage = () => {
   }, [data, price, productNos]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="text-center font-bold text-xl">Loading...</div>;
   }
   return (
     <div>

@@ -1,11 +1,8 @@
-import { ReactNode } from "react";
+import { ReactChild } from "@/lib/types";
 
-interface Props {
-  children: ReactNode;
-}
 
-const wrapper = (props: Props) => {
-  return <div className="max-w-[1400px] m-auto">{props.children}</div>;
+const wrapper = (ReactChild: ReactChild) => {
+  return <div className="max-w-[1400px] m-auto">{ReactChild.children}</div>;
 };
 
 export default wrapper;

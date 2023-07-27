@@ -1,17 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { urlForImage } from "../../../sanity/lib/image";
-import { Image as SanityImage } from "sanity";
-
-interface AllProducts {
-  _id: string;
-  alt: string;
-  image: SanityImage;
-  title: string;
-  subtitle: string;
-  price: number;
-  categories: string;
-}
+import { AllProducts } from "@/lib/types";
 
 const ProductCard = (props: AllProducts) => {
   return (
@@ -26,7 +16,7 @@ const ProductCard = (props: AllProducts) => {
           />
           <h3 className="font-bold text-lg mt-3">
             <span className="text-[15px] font-sora font-bold text-left">
-              {props.title}
+              {props.productTitle}
             </span>
           </h3>
           <p className="font-bold text-lg">
