@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const cartApi = createApi({
   reducerPath: "cartApi",
   tagTypes: ["delete", "post"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://hackthon-1-riazmehmood.vercel.app/" }),
   endpoints: (builder) => ({
     getCartData: builder.query({
       query: () => `/api/cart`,
@@ -31,6 +31,13 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ["delete"],
     }),
+    deleteAllData: builder.mutation({
+      query: () => ({
+        url: `/api/clearDB`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["delete"],
+    }),
   }),
 });
 
@@ -39,4 +46,5 @@ export const {
   usePostDataInCartMutation,
   useUpdataDataInCartMutation,
   useDeleteDataInCartMutation,
+  useDeleteAllDataMutation,
 } = cartApi;

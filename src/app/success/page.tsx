@@ -1,17 +1,20 @@
 "use client";
 import SuccessBtn from "@/components/ui/successBtn";
 import { CheckSquare } from "lucide-react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppDispatch } from "../store/hooks";
 import { clearCart } from "../store/slices/cartSlice";
-import { useDeleteDataInCartMutation } from "../store/slices/services/cartapi";
+import { useDeleteAllDataMutation } from "../store/slices/services/cartapi";
+import { useEffect } from "react";
 
 const SuccessPage = () => {
   const dispatch = useAppDispatch();
-  dispatch(clearCart());
-  const [deleteData, result] = useDeleteDataInCartMutation();
+  const [deleteData, result] = useDeleteAllDataMutation();
 
-  const products = useAppSelector((state) => state.cart.products);
-  products.map((item) => deleteData(item.product_id));
+  useEffect(() => {
+    dispatch(clearCart());
+    deleteData("");
+  }, [])
+
 
   return (
     <>
