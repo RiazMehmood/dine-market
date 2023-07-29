@@ -25,7 +25,7 @@ const HeroData = () => {
     };
     fetchHeroData();
   }, []);
-  console.log("hero data in client", heroData)
+  // console.log("hero data in client", heroData)
 
   if (heroData.length === 0) {
     return (

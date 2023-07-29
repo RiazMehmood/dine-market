@@ -9,7 +9,6 @@ interface CarousalProp {
   items: Carousal[];
 }
 
-
 export default function Carousel({ items }: CarousalProp) {
   const breakpoints = {
     // when window width is >= 640px
@@ -29,27 +28,23 @@ export default function Carousel({ items }: CarousalProp) {
     },
   };
   return (
-    <div className=" m-auto">
-      <div className="flex justify-center ml-9 items-center w-full">
-        <Swiper breakpoints={breakpoints}>
-          {items.map((item) => (
-            <SwiperSlide key={item.key}>
-              <div className="hover:scale-110 duration-300 hover:delay-500 m-4 w-[90%]">
-                <Image
-                  src={urlForImage(item.image).url()}
-                  alt={item.productTitle}
-                  width={300}
-                  height={350}
-                />
-                <p className="font-bold font-sora text-xl">
-                  {item.productTitle}
-                </p>
-                <p className="font-bold font-sora text-xl">${item.price}</p>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </div>
+    <Swiper breakpoints={breakpoints}>
+      {items.map((item) => (
+        <SwiperSlide key={item.key}>
+          <div className="m-4">
+            <div>
+              <Image
+                src={urlForImage(item.image).url()}
+                alt={item.productTitle}
+                width={300}
+                height={350}
+              />
+              <p className="font-bold font-sora text-xl">{item.productTitle}</p>
+              <p className="font-bold font-sora text-xl">${item.price}</p>
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 }

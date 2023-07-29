@@ -5,7 +5,7 @@ import { useAppSelector } from "@/app/store/hooks";
 const CheckoutBtn = () => {
 
   const body = useAppSelector(state=>state.cart.products)
-  console.log(body)
+  // console.log(body)
 
   const handleStripeCheckout = async () => {
     try {

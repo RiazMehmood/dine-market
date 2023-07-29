@@ -23,9 +23,9 @@ const PromoFooter = () => {
     <div>
         <p className={"font-light"}>{promoData?.[0]?.promoFooter}</p>
         <div className="mt-6">
-          <Link href={"/allProducts"}>
+          <Link href={"/products"}>
             <PrimaryButton
-              classNames={"px-14"}
+              classNames={""}
               title={"See All Products"}
               onClick={undefined}
             />

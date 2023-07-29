@@ -6,7 +6,7 @@ import { urlForImage } from "../../../sanity/lib/image";
 import { HeroTypes } from "@/lib/types";
 
 const Hero = ( {heroData} : { heroData: HeroTypes[] }) => {
-  console.log("hero data",heroData)
+  // console.log("hero data",heroData)
 
 
  
@@ -43,7 +43,7 @@ const Hero = ( {heroData} : { heroData: HeroTypes[] }) => {
               </Link>
 
               {/* Featured images */}
-              <div className="flex justify-evenly mt-20 gap-x-12">
+              <div className="flex flex-col md:flex-row flex-shrink-0 gap-y-6 items-center justify-around mt-10 gap-x-12">
                 {item.heroSponsorLogos.map((img, ind) => (
                   <div key={ind}>
                     <Image
@@ -58,8 +58,8 @@ const Hero = ( {heroData} : { heroData: HeroTypes[] }) => {
             </div>
 
             {/* Hero main image */}
-            <div className="bg-[#ffece3] md:w-96 md:h-96 rounded-full mr-20 hidden sm:block ">
-              <div className="-m-10">
+            <div className="bg-[#ffece3] sm:flex flex-shrink-0 md:w-96 md:h-96 rounded-full mr-10 hidden">
+              <div className="">
                 <Image
                   src={urlForImage(item.heroMainImage).url()}
                   alt={item.heroMainAlt}

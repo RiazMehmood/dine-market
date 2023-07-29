@@ -2,12 +2,10 @@
 import SectionHeadings from "../ui/SectionHeading";
 import Carousel from "../ui/carousal";
 import { client } from "../../../sanity/lib/client";
-import { Image as SImage } from "sanity";
 import { useEffect, useState } from "react";
 import PromoFooter from "@/components/ui/promoFooter";
 import PromoFooterGirl from "../ui/promoFooterGirl";
 import { Carousal } from "@/lib/types";
-
 
 const Products = () => {
   const [carousalItems, setCarousalItems] = useState<Carousal[]>([]);
@@ -23,14 +21,13 @@ const Products = () => {
     fetchData();
   }, []);
 
-
   return (
     <section className={"w-full mt-24"}>
       <SectionHeadings
         miniHeading={"Products"}
         mainHeading={"Check What We Have"}
       />
-      <Carousel items={carousalItems}/>
+      <Carousel items={carousalItems} />
       <div className={"mt-24"}>
         <div>
           <label
@@ -67,7 +64,7 @@ const Products = () => {
           </div>
           {/* picture */}
           <div className="col-span-2 sm:col-span-1 sm:row-span-2 lg:order-3 lg:row-span-2 mt-4">
-           <PromoFooterGirl/>
+            <PromoFooterGirl />
           </div>
           {/* Picture text */}
           <div className="col-span-2 sm:col-span-1 sm:row-span-2 lg:order-4 lg:row-span-2">

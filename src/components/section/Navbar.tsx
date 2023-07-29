@@ -1,67 +1,70 @@
 "use client";
-import { Search } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import Cart from "../ui/Cart";
-import Dropdown from "../ui/dropDown";
 import Logo from "../ui/logo";
 import Providers from "@/app/providers";
+import { NavbarData, Nav } from "../ui/navData";
+import DropDownList from "../ui/dropDownList";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
 
   return (
     <Providers>
-    <nav className="flex items-center justify-center my-8 md:my-11 lg:justify-start lg:items-center">
-      <div className="flex w-screen justify-around md:justify-between md:mx-10 lg:max-w-[14%] lg:flex-start items-center">
-        <div className="">
-          {/* Logo */}
-          <div className="flex item-center">
+      <div>
+        <div className="flex items-center justify-between my-4 sm:my-8 lg:my-10 px-4 md:my-11 lg:justify-between lg:items-center">
+          {/* logo n dropdown */}
+          <div className="flex flex-shrink-0">
+            {/* Logo */}
             <Link href={"/"}>
               <Logo />
             </Link>
           </div>
-        </div>
-        <div className="lg:hidden backdrop-blur-xl bg-white">
-          {/* Redix UI Dropdown */}
-          <Dropdown />
-        </div>
-      </div>
-      <div className="hidden lg:flex lg:w-full lg:justify-around">
-        <div className="px-2 py-3 flex-wrap font-semibold text-blue-500 md:text-black/60 md:py-0 ">
-          <Link href="/category/male" onClick={() => setNavbar(!navbar)}>
-            Male
-          </Link>
-        </div>
-        <div className="px-2 py-3 font-semibold text-blue-500 md:text-black/60 md:py-0">
-          <Link href="/category/female" onClick={() => setNavbar(!navbar)}>
-            Female
-          </Link>
-        </div>
-        <div className="px-2 py-3 font-semibold text-blue-500 md:text-black/60 md:py-0">
-          <Link href="/category/kids" onClick={() => setNavbar(!navbar)}>
-            Kids
-          </Link>
-        </div>
-        <div className="px-2 py-3 font-semibold text-blue-500 md:text-black/60 md:py-0">
-          <Link href="/products" onClick={() => setNavbar(!navbar)}>
-            All Products
-          </Link>
-        </div>
+          {/* Categories */}
+          <div className="hidden lg:flex px-2 py-3 flex-wrap space-x-14 lg:text-md md:text-md font-semibold text-blue-500 md:text-black/60 md:py-0 ">
+            {NavbarData.map((item: Nav) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                onClick={() => setNavbar(!navbar)}
+              >
+                {item.title}
+              </Link>
+            ))}
+          </div>
+          {/* Search Bar */}
+          <div className="items-center mr-4 hidden lg:flex">
+            <Search className="bg-white rounded-l" />
+            <input
+              type="text"
+              placeholder="What are you looking for"
+              className="rounded-r w-72 border-2 h-8"
+            ></input>
+          </div>
+          {/* Cart Icon */}
+          <div className="hidden lg:flex">
+            <Cart />
+          </div>
 
-        <div className="md:flex invisible md:visible mr-4">
-          <Search className="bg-white rounded-l" />
-          <input
-            type="text"
-            placeholder="What you are looking for"
-            className="rounded-r border-2 h-6"
-          ></input>
+          {/* dropdown */}
+          <div
+            className="lg:hidden flex backdrop-blur-xl bg-white"
+            onClick={() => setNavbar(!navbar)}
+          >
+            {navbar ? (
+              <X size={32} strokeWidth={2.25} />
+            ) : (
+              <Menu size={32} strokeWidth={2.25} />
+            )}
+            {/* <h1 className="text-2xl font-bold text-center">...</h1> */}
+          </div>
         </div>
-        <div className="">
-          <Cart />
+        <div>
+          {navbar ? <DropDownList navbar={navbar} setNavbar={setNavbar} /> : ""}
         </div>
       </div>
-    </nav>
     </Providers>
   );
 };

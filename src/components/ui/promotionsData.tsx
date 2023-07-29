@@ -90,7 +90,7 @@ const PromotionsData = () => {
               </label>
               <label
                 className={
-                  "text-lg tracking-widest text-white bg-gray-500 px-4 py-1 rounded-lg"
+                  "text-md md:text-xl tracking-widest text-white bg-gray-500 px-4 py-1 rounded-lg"
                 }
               >
                 {promoData[0]?.cardPromoCode2}
