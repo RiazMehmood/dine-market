@@ -4,6 +4,7 @@ import Wrapper from "@/components/ui/Wrapper";
 import { Sora } from "@next/font/google";
 import "./globals.css";
 import Providers from "./providers";
+import { ClerkProvider } from '@clerk/nextjs'
 
 const sora = Sora({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body>
         <Wrapper>
@@ -34,5 +36,6 @@ export default function RootLayout({
         </Wrapper>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
