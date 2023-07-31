@@ -7,7 +7,6 @@ import Logo from "../ui/logo";
 import Providers from "@/app/providers";
 import { NavbarData, Nav } from "../ui/navData";
 import DropDownList from "../ui/dropDownList";
-import { UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);

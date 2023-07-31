@@ -1,4 +1,4 @@
-import { UserButton } from "@clerk/nextjs";
+// import { UserButton } from "@clerk/nextjs";
 import Cart from "./Cart";
 import { NavbarData, Nav } from "./navData";
 import Link from "next/link";
@@ -23,7 +23,7 @@ const DropDownList: React.FC<DropDownListProps> = ({ navbar, setNavbar }) => {
         </Link>
       ))}
       <Cart />
-      <UserButton />
+      {/* <UserButton /> */}
     </div>
       </div>
   );
