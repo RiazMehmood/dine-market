@@ -3,6 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const cartApi = createApi({
   reducerPath: "cartApi",
   tagTypes: ["delete", "post"],
+  //https://hackthon-1-riazmehmood.vercel.app/
+  //http://localhost:3000/
   baseQuery: fetchBaseQuery({ baseUrl: "https://hackthon-1-riazmehmood.vercel.app/" }),
   endpoints: (builder) => ({
     getCartData: builder.query({

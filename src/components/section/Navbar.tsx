@@ -29,7 +29,7 @@ const Navbar = () => {
               <Link
                 key={item.title}
                 href={item.href}
-                onClick={() => setNavbar(!navbar)}
+                // onClick={() => setNavbar(!navbar)}
               >
                 {item.title}
               </Link>
@@ -48,15 +48,16 @@ const Navbar = () => {
           <div className="hidden lg:flex">
             <Cart />
           </div>
-          <div className="hidden lg:flex">
-            <UserButton />
-          </div>
+          {/* <div className="hidden lg:flex">
+            {/* <UserButton /> */}
+          {/* </div> */}
 
           {/* dropdown */}
           <div
             className="lg:hidden flex backdrop-blur-xl bg-white"
             onClick={() => setNavbar(!navbar)}
           >
+            
             {navbar ? (
               <X size={32} strokeWidth={2.25} />
             ) : (
